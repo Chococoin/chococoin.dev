@@ -229,6 +229,10 @@ function initScene() {
       o.receiveShadow = true;
       if (o.material) {
         o.material.envMapIntensity = 1.0;
+        // el modelo viene con alphaMode BLEND erroneo -> forzar opaco
+        o.material.transparent = false;
+        o.material.depthWrite = true;
+        o.material.needsUpdate = true;
         if (o.material.name === 'Screen') screenMesh = o;
       }
     });
@@ -275,7 +279,7 @@ function initScene() {
     if (front.lengthSq() < 1e-4) front.set(0, 0, 1);
     front.normalize();
 
-    const wideDist = (mSize.y * 0.5) / Math.tan(fov / 2);
+    const wideDist = (mSize.y * 0.66) / Math.tan(fov / 2);
     VIEW.wide.pos.copy(mCenter)
       .addScaledVector(front, wideDist);
     VIEW.wide.pos.y = mCenter.y + mSize.y * 0.10;
