@@ -1,0 +1,11 @@
+Model Information:
+* title:	Arcade Cabinet
+* source:	https://sketchfab.com/3d-models/arcade-cabinet-b0cf90709d634eee9b104bd6cb13cb1d
+* author:	joshtmc (https://sketchfab.com/joshtmc)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Arcade Cabinet" (https://sketchfab.com/3d-models/arcade-cabinet-b0cf90709d634eee9b104bd6cb13cb1d) by joshtmc (https://sketchfab.com/joshtmc) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

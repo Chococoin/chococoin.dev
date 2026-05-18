@@ -228,6 +228,15 @@ html, body {
   color: var(--cyan);
   margin-right: 8px;
 }
+.panel-body .credits {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 2px dashed #3a2f5c;
+  font-size: 15px;
+  color: #8a82ad;
+  line-height: 1.5;
+}
+.panel-body .credits a { color: #b0a8d4; }
 
 /* ---- Fallback sin WebGL (portafolio 2D) ---- */
 #fallback {
