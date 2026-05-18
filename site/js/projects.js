@@ -8,7 +8,7 @@ export const PROFILE = {
        'y herramientas raras — del firmware al frontend, pixel a pixel.',
   contacts: [
     { label: 'EMAIL',  value: 'g.lugo.dev@gmail.com',  href: 'mailto:g.lugo.dev@gmail.com' },
-    { label: 'GITHUB', value: 'github.com/chocos',     href: 'https://github.com/chocos' },
+    { label: 'GITHUB', value: 'github.com/Chococoin',     href: 'https://github.com/Chococoin' },
   ],
 };
 
@@ -26,7 +26,7 @@ export const PROJECTS = [
       'App nativa en Swift para macOS.',
       'Datos de salud para entrenar un maraton.',
     ],
-    link: 'https://github.com/chocos/heart-project',
+    link: 'https://github.com/Chococoin/heart-project',
     linkLabel: 'VER EN GITHUB',
   },
   {
@@ -42,7 +42,7 @@ export const PROJECTS = [
       'Face-swap como primera fase y correccion de labios despues.',
       'Procesa video con ffmpeg y modelos locales.',
     ],
-    link: 'https://github.com/chocos/lipsync-corrector',
+    link: 'https://github.com/Chococoin/lipsync-corrector',
     linkLabel: 'VER EN GITHUB',
   },
   {
@@ -58,7 +58,7 @@ export const PROJECTS = [
       'Token ERC-20 propio y minteo de NFTs sobre IPFS.',
       'Proyecto educativo de codigo abierto.',
     ],
-    link: 'https://github.com/chocos/chocosferaBot',
+    link: 'https://github.com/Chococoin/chocosferaBot',
     linkLabel: 'VER EN GITHUB',
   },
 ];
