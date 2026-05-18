@@ -1,0 +1,302 @@
+/* ===== Portafolio Arcade — estilo retro 8/16-bit ===== */
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('../fonts/press-start-2p.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'VT323';
+  src: url('../fonts/vt323.woff2') format('woff2');
+  font-display: swap;
+}
+
+:root {
+  --pink:   #ff2e88;
+  --cyan:   #1ee6e6;
+  --yellow: #ffe22e;
+  --lime:   #7dff4d;
+  --purple: #9b4dff;
+  --ink:    #05030c;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  background: var(--ink);
+  overflow: hidden;
+  font-family: 'VT323', monospace;
+  color: #fff;
+}
+
+.hidden { display: none !important; }
+
+/* ---- Escena 3D ---- */
+#scene {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+/* ---- Pantalla de carga ---- */
+#loading {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+}
+.load-inner { text-align: center; }
+.load-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(16px, 4vw, 28px);
+  color: var(--yellow);
+  text-shadow: 3px 3px 0 var(--pink), 6px 6px 0 rgba(0,0,0,.6);
+  margin-bottom: 26px;
+}
+.load-bar {
+  width: min(280px, 70vw);
+  height: 18px;
+  margin: 0 auto 14px;
+  border: 3px solid #fff;
+  background: #000;
+  padding: 2px;
+}
+.load-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: repeating-linear-gradient(90deg,
+    var(--cyan) 0 8px, var(--lime) 8px 16px);
+  animation: fill 1.2s steps(20) forwards;
+}
+@keyframes fill { to { width: 100%; } }
+.load-msg {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: var(--cyan);
+  animation: blink 1s steps(2) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---- Interfaz superpuesta ---- */
+#ui {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+#ui header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 18px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+#ui .tag {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--lime);
+}
+#ui .tag b { color: var(--yellow); }
+#ui nav { display: flex; gap: 8px; }
+#ui nav button {
+  pointer-events: auto;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #fff;
+  background: #000;
+  border: 3px solid #fff;
+  padding: 9px 11px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--purple);
+}
+#ui nav button:hover { background: var(--pink); }
+#ui #zoomout { box-shadow: 3px 3px 0 var(--cyan); }
+
+#hint {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  text-align: center;
+  padding: 14px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--cyan);
+  background: linear-gradient(0deg, rgba(5,3,12,.92), transparent);
+  animation: blink 1.4s steps(2) infinite;
+}
+
+/* ---- Panel superpuesto ---- */
+#overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(5,3,12,.82);
+  backdrop-filter: blur(2px);
+}
+#overlay .panel {
+  position: relative;
+  width: min(560px, 94vw);
+  max-height: 88vh;
+  overflow-y: auto;
+  background: #140d28;
+  border: 4px solid #fff;
+  box-shadow: 10px 10px 0 var(--purple);
+  padding: 22px;
+}
+/* scanlines del panel */
+#overlay .panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg,
+    rgba(0,0,0,.22) 0 2px, transparent 2px 4px);
+}
+#overlay .close {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #000;
+  background: var(--yellow);
+  border: 3px solid #000;
+  padding: 9px 12px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #000;
+  margin-bottom: 18px;
+}
+#overlay .close:hover { background: var(--lime); }
+
+.panel-body h2 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(13px, 3.4vw, 18px);
+  line-height: 1.4;
+  color: var(--yellow);
+  text-shadow: 3px 3px 0 var(--pink);
+  margin-bottom: 14px;
+}
+.panel-body .tagline {
+  font-size: 21px;
+  color: var(--cyan);
+  margin-bottom: 16px;
+}
+.panel-body ul { list-style: none; margin-bottom: 20px; }
+.panel-body li {
+  font-size: 19px;
+  color: #d9d4ff;
+  padding: 5px 0 5px 22px;
+  position: relative;
+}
+.panel-body li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--lime);
+}
+.panel-body .cta {
+  display: inline-block;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: #fff;
+  background: var(--pink);
+  border: 3px solid #000;
+  padding: 13px 16px;
+  text-decoration: none;
+  box-shadow: 5px 5px 0 #000;
+}
+.panel-body .cta:hover { background: var(--purple); }
+.panel-body .contact-list { list-style: none; }
+.panel-body .contact-list li { padding-left: 0; }
+.panel-body .contact-list a {
+  font-size: 21px;
+  color: var(--yellow);
+  text-decoration: none;
+}
+.panel-body .contact-list a:hover { color: var(--lime); text-decoration: underline; }
+.panel-body .contact-list .label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--cyan);
+  margin-right: 8px;
+}
+
+/* ---- Fallback sin WebGL (portafolio 2D) ---- */
+#fallback {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  overflow-y: auto;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,46,136,.25), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(30,230,230,.22), transparent 45%),
+    var(--ink);
+  padding: 40px 20px 60px;
+}
+#fallback .fb-wrap { max-width: 920px; margin: 0 auto; }
+#fallback h1 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(24px, 7vw, 52px);
+  color: var(--yellow);
+  text-shadow: 4px 0 var(--pink), 0 5px var(--purple), 4px 5px #000;
+  text-align: center;
+  transform: rotate(-3deg);
+  margin: 20px 0 30px;
+}
+#fallback .fb-bio {
+  text-align: center;
+  font-size: 22px;
+  color: #d9d4ff;
+  max-width: 560px;
+  margin: 0 auto 36px;
+}
+#fallback .fb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+#fallback .fb-card {
+  border: 4px solid #fff;
+  background: #140d28;
+  box-shadow: 6px 6px 0 #000;
+}
+#fallback .fb-card .fb-top {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  color: #0a0a14;
+}
+#fallback .fb-card .fb-meta { padding: 14px; border-top: 4px solid #fff; }
+#fallback .fb-card h3 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  color: var(--yellow);
+  margin-bottom: 10px;
+}
+#fallback .fb-card p { font-size: 19px; color: #bdb8e0; margin-bottom: 12px; }
+#fallback .fb-card a {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: var(--cyan);
+  text-decoration: none;
+}
+#fallback .fb-card a:hover { color: var(--lime); }
+#fallback .fb-foot {
+  text-align: center;
+  margin-top: 40px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--cyan);
+}
+#fallback .fb-foot a { color: var(--yellow); }

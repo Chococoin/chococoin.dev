@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CHOCOS · Portafolio Arcade</title>
+<meta name="description" content="Portafolio de CHOCOS — proyectos de software y hardware dentro de una maquina arcade.">
+<meta name="theme-color" content="#05030c">
+<style>
+  /* critico: evita parpadeo blanco antes de cargar el CSS */
+  html,body{margin:0;height:100%;background:#05030c}
+</style>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Pantalla de carga -->
+  <div id="loading">
+    <div class="load-inner">
+      <div class="load-title">CHOCOS&nbsp;ARCADE</div>
+      <div class="load-bar"><span></span></div>
+      <div class="load-msg">INSERTANDO MONEDA…</div>
+    </div>
+  </div>
+
+  <!-- Escena 3D -->
+  <canvas id="scene"></canvas>
+
+  <!-- Interfaz superpuesta -->
+  <div id="ui" class="hidden">
+    <header>
+      <div class="tag">★ PLAYER 1 · <b id="alias">CHOCOS</b></div>
+      <nav>
+        <button id="zoomout" class="hidden" data-nav="zoomout">◀ SALIR</button>
+        <button data-nav="about">ABOUT</button>
+        <button data-nav="contact">CONTACT</button>
+      </nav>
+    </header>
+    <footer id="hint">CLIC EN LA MÁQUINA PARA JUGAR</footer>
+  </div>
+
+  <!-- Panel superpuesto (detalle / about / contact) -->
+  <div id="overlay" class="hidden" aria-hidden="true">
+    <div class="panel">
+      <button class="close" data-close>◀ BACK</button>
+      <div class="panel-body" id="panel-body"></div>
+    </div>
+  </div>
+
+  <!-- Fallback sin WebGL -->
+  <div id="fallback" class="hidden"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
