@@ -5,6 +5,7 @@ import { EffectComposer } from '../vendor/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from '../vendor/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from '../vendor/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from '../vendor/jsm/postprocessing/OutputPass.js';
+import { RoundedBoxGeometry } from '../vendor/jsm/geometries/RoundedBoxGeometry.js';
 import { PROJECTS, PROFILE } from './projects.js';
 import * as Screen from './screen.js';
 
@@ -179,58 +180,124 @@ function initScene() {
 
   /* --- cabina --- */
   const cab = new THREE.Group();
-  const bodyMat = new THREE.MeshStandardMaterial({ color: '#241845', roughness: 0.7, metalness: 0.1 });
-  const blackMat = new THREE.MeshStandardMaterial({ color: '#0a0810', roughness: 0.5 });
+
+  // materiales por pieza
+  const matBody = new THREE.MeshStandardMaterial({
+    color: '#2a1b52', roughness: 0.6, metalness: 0.0, envMapIntensity: 0.85 });
+  const matDark = new THREE.MeshStandardMaterial({
+    color: '#0c0a16', roughness: 0.5, metalness: 0.0 });
+  const matMetal = new THREE.MeshStandardMaterial({
+    color: '#3c3c46', roughness: 0.34, metalness: 0.95, envMapIntensity: 1.2 });
+  const matGlass = new THREE.MeshPhysicalMaterial({
+    color: '#0a1014', roughness: 0.08, metalness: 0.0,
+    transparent: true, opacity: 0.16,
+    clearcoat: 1.0, clearcoatRoughness: 0.06, envMapIntensity: 1.5 });
+
   const box = (w, h, d, mat) => new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+  const rbox = (w, h, d, r, mat) =>
+    new THREE.Mesh(new RoundedBoxGeometry(w, h, d, 4, r), mat);
 
-  const base = box(1.6, 1.15, 1.15, bodyMat); base.position.y = 0.575; cab.add(base);
-  const upper = box(1.6, 1.7, 1.05, bodyMat); upper.position.set(0, 2.0, -0.05); cab.add(upper);
-  const bezel = box(1.34, 1.16, 0.12, blackMat); bezel.position.set(0, 2.12, 0.52); cab.add(bezel);
+  // cuerpo (cajas con bordes biselados)
+  const base = rbox(1.62, 1.15, 1.16, 0.06, matBody);
+  base.position.y = 0.575; cab.add(base);
+  const upper = rbox(1.6, 1.7, 1.05, 0.07, matBody);
+  upper.position.set(0, 2.0, -0.05); cab.add(upper);
 
+  // bisel de la pantalla (plastico negro)
+  const bezel = rbox(1.34, 1.16, 0.16, 0.05, matDark);
+  bezel.position.set(0, 2.12, 0.50); cab.add(bezel);
+
+  // pantalla CRT (emisiva)
   const screenMat = new THREE.MeshStandardMaterial({
     map: screenTex, emissive: '#ffffff', emissiveMap: screenTex,
     emissiveIntensity: 1.25, roughness: 0.35,
   });
   const screen = box(1.06, 0.92, 0.04, screenMat);
-  screen.position.set(0, 2.14, 0.60);
+  screen.position.set(0, 2.14, 0.605);
   cab.add(screen);
 
+  // cristal con brillo sobre la pantalla
+  const glass = box(1.12, 0.98, 0.02, matGlass);
+  glass.position.set(0, 2.14, 0.645);
+  cab.add(glass);
+
+  // marquesina
   const marMat = new THREE.MeshStandardMaterial({
     map: marqueeTex, emissive: '#ffffff', emissiveMap: marqueeTex, emissiveIntensity: 0.9,
   });
-  const marquee = box(1.62, 0.46, 0.42, marMat);
+  const marquee = rbox(1.64, 0.46, 0.44, 0.05, marMat);
   marquee.position.set(0, 3.05, 0.16); cab.add(marquee);
 
-  const panel = box(1.5, 0.62, 0.16, blackMat);
-  panel.position.set(0, 1.28, 0.66); panel.rotation.x = -1.0; cab.add(panel);
+  // rejilla del altavoz (entre pantalla y marquesina)
+  const grilleC = document.createElement('canvas');
+  grilleC.width = 128; grilleC.height = 16;
+  const gx = grilleC.getContext('2d');
+  gx.fillStyle = '#15121f'; gx.fillRect(0, 0, 128, 16);
+  gx.fillStyle = '#000000';
+  for (let a = 4; a < 128; a += 8) {
+    for (let b = 4; b < 16; b += 8) {
+      gx.beginPath(); gx.arc(a, b, 2.2, 0, 7); gx.fill();
+    }
+  }
+  const grille = box(1.04, 0.12, 0.04, new THREE.MeshStandardMaterial({
+    map: new THREE.CanvasTexture(grilleC), roughness: 0.7 }));
+  grille.position.set(0, 2.77, 0.5); cab.add(grille);
 
+  // panel de control inclinado
+  const ctrl = rbox(1.5, 0.62, 0.2, 0.05, matDark);
+  ctrl.position.set(0, 1.28, 0.66); ctrl.rotation.x = -1.0; cab.add(ctrl);
+
+  // joystick
   const stick = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.045, 0.045, 0.34, 8),
-    new THREE.MeshStandardMaterial({ color: '#111' }));
+    new THREE.CylinderGeometry(0.045, 0.05, 0.34, 12),
+    new THREE.MeshStandardMaterial({ color: '#141414', roughness: 0.5 }));
   stick.position.set(-0.42, 1.55, 0.78); stick.rotation.x = -0.35; cab.add(stick);
   const ball = new THREE.Mesh(
-    new THREE.SphereGeometry(0.1, 16, 12),
-    new THREE.MeshStandardMaterial({ color: '#ff2e88', roughness: 0.3 }));
+    new THREE.SphereGeometry(0.1, 24, 16),
+    new THREE.MeshStandardMaterial({
+      color: '#ff2e88', roughness: 0.16, metalness: 0.0, envMapIntensity: 1.3 }));
   ball.position.set(-0.40, 1.71, 0.84); cab.add(ball);
 
+  // botones brillantes
   ['#ffe22e', '#1ee6e6', '#7dff4d', '#ff7b2e'].forEach((c, i) => {
     const b = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.075, 0.075, 0.07, 14),
-      new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.35 }));
+      new THREE.CylinderGeometry(0.075, 0.075, 0.07, 20),
+      new THREE.MeshStandardMaterial({
+        color: c, emissive: c, emissiveIntensity: 0.3,
+        roughness: 0.2, envMapIntensity: 1.2 }));
     b.position.set(0.06 + i * 0.20, 1.62 - i * 0.012, 0.80 - i * 0.018);
     b.rotation.x = -0.35 + Math.PI / 2; cab.add(b);
   });
 
-  [-0.81, 0.81].forEach((x) => {
-    const s = box(0.05, 1.7, 0.04, new THREE.MeshStandardMaterial({
-      color: '#1ee6e6', emissive: '#1ee6e6', emissiveIntensity: 1.4 }));
-    s.position.set(x, 2.0, 0.50); cab.add(s);
+  // puerta de monedas (metal)
+  const coinDoor = rbox(0.46, 0.6, 0.07, 0.02, matMetal);
+  coinDoor.position.set(0, 0.62, 0.6); cab.add(coinDoor);
+  [-0.1, 0.1].forEach((x) => {
+    const slot = box(0.035, 0.13, 0.03, matDark);
+    slot.position.set(x, 0.78, 0.63); cab.add(slot);
   });
+  const coinReturn = box(0.2, 0.07, 0.03, matDark);
+  coinReturn.position.set(0, 0.42, 0.63); cab.add(coinReturn);
+
+  // t-molding: moldura de neon en los bordes frontales
+  const matTrimC = new THREE.MeshStandardMaterial({
+    color: '#1ee6e6', emissive: '#1ee6e6', emissiveIntensity: 0.7, roughness: 0.3 });
+  const matTrimP = new THREE.MeshStandardMaterial({
+    color: '#ff2e88', emissive: '#ff2e88', emissiveIntensity: 0.7, roughness: 0.3 });
+  [-0.8, 0.8].forEach((x) => {
+    const t = new THREE.Mesh(new THREE.CapsuleGeometry(0.05, 1.6, 6, 12), matTrimC);
+    t.position.set(x, 2.0, 0.48); cab.add(t);
+  });
+  const trimTop = new THREE.Mesh(new THREE.CapsuleGeometry(0.045, 1.5, 6, 12), matTrimP);
+  trimTop.rotation.z = Math.PI / 2;
+  trimTop.position.set(0, 2.83, 0.46); cab.add(trimTop);
+
   scene.add(cab);
   // todas las piezas de la cabina proyectan y reciben sombra
   cab.traverse((o) => {
     if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; }
   });
+  glass.castShadow = false; // el cristal no proyecta sombra
 
   /* --- suelo --- */
   const floor = new THREE.Mesh(
