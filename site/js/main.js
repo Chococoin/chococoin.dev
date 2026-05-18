@@ -1,8 +1,15 @@
 // Portafolio Arcade — escena 3D, interaccion y fallback.
 
-import * as THREE from '../vendor/three.module.js';
+import * as THREE from 'three';
+import { EffectComposer } from '../vendor/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from '../vendor/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from '../vendor/jsm/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from '../vendor/jsm/postprocessing/OutputPass.js';
 import { PROJECTS, PROFILE } from './projects.js';
 import * as Screen from './screen.js';
+
+// En pantallas pequeñas se bajan los efectos para mantener fluidez.
+const LOW = window.matchMedia('(max-width: 820px)').matches;
 
 /* ---------- deteccion de WebGL ---------- */
 function hasWebGL() {
@@ -110,12 +117,42 @@ document.addEventListener('keydown', (e) => {
 function initScene() {
   const canvas = $('#scene');
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setPixelRatio(Math.min(devicePixelRatio, LOW ? 1.5 : 2));
   renderer.setSize(innerWidth, innerHeight);
+  // render cinematografico: curva de color tipo cine
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.25;
+  // sombras suaves (desactivadas en movil)
+  renderer.shadowMap.enabled = !LOW;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color('#05030c');
   scene.fog = new THREE.Fog('#05030c', 7, 18);
+
+  // Mapa de entorno: una sala con paneles de neon da reflejos
+  // realistas al plastico, el metal y el cristal de la cabina.
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  const envScene = new THREE.Scene();
+  {
+    envScene.add(new THREE.Mesh(
+      new THREE.BoxGeometry(24, 14, 24),
+      new THREE.MeshBasicMaterial({ color: '#0a0714', side: THREE.BackSide })));
+    const glow = (c, x, y, z, w, h) => {
+      const m = new THREE.Mesh(
+        new THREE.PlaneGeometry(w, h),
+        new THREE.MeshBasicMaterial({ color: c }));
+      m.position.set(x, y, z);
+      m.lookAt(0, y, 0);
+      envScene.add(m);
+    };
+    glow('#ff2e88', -8, 4, 2, 7, 5);
+    glow('#1ee6e6', 8, 3, -2, 7, 6);
+    glow('#9b4dff', 0, 8, -7, 12, 5);
+    glow('#7dff4d', 0, 1.5, 8, 9, 3);
+  }
+  scene.environment = pmrem.fromScene(envScene, 0.4).texture;
+  pmrem.dispose();
 
   const camera = new THREE.PerspectiveCamera(46, innerWidth / innerHeight, 0.1, 100);
   camera.position.set(0, 2.0, 5.4);
@@ -190,12 +227,17 @@ function initScene() {
     s.position.set(x, 2.0, 0.50); cab.add(s);
   });
   scene.add(cab);
+  // todas las piezas de la cabina proyectan y reciben sombra
+  cab.traverse((o) => {
+    if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; }
+  });
 
   /* --- suelo --- */
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(40, 40),
     new THREE.MeshStandardMaterial({ color: '#0c0820', roughness: 0.35, metalness: 0.4 }));
   floor.rotation.x = -Math.PI / 2;
+  floor.receiveShadow = true;
   scene.add(floor);
 
   /* --- pared con rejilla neon --- */
@@ -223,8 +265,24 @@ function initScene() {
   screenLight.position.set(0, 2.2, 1.6); scene.add(screenLight);
   const marLight = new THREE.PointLight('#ff2e88', 4, 7);
   marLight.position.set(0, 3.2, 1.2); scene.add(marLight);
-  const rim = new THREE.DirectionalLight('#9b4dff', 0.8);
-  rim.position.set(-4, 5, -3); scene.add(rim);
+  // luz principal que proyecta la sombra de la cabina al suelo
+  const rim = new THREE.DirectionalLight('#cbb3ff', 1.1);
+  rim.position.set(-4, 6, 3.5);
+  rim.target.position.set(0, 1.7, 0);
+  scene.add(rim);
+  scene.add(rim.target);
+  if (!LOW) {
+    rim.castShadow = true;
+    rim.shadow.mapSize.set(2048, 2048);
+    rim.shadow.camera.near = 0.5;
+    rim.shadow.camera.far = 24;
+    rim.shadow.camera.left = -5;
+    rim.shadow.camera.right = 5;
+    rim.shadow.camera.top = 6;
+    rim.shadow.camera.bottom = -2;
+    rim.shadow.bias = -0.0016;
+    rim.shadow.radius = 4;
+  }
 
   /* --- charco de luz --- */
   const poolC = document.createElement('canvas'); poolC.width = poolC.height = 128;
@@ -336,10 +394,26 @@ function initScene() {
     if (nav === 'contact') btn.addEventListener('click', openContact);
   });
 
+  /* ---------- post-procesado: bloom (resplandor del neon) ---------- */
+  let composer = null;
+  if (!LOW) {
+    const dbs = renderer.getDrawingBufferSize(new THREE.Vector2());
+    const rt = new THREE.WebGLRenderTarget(dbs.x, dbs.y, {
+      type: THREE.HalfFloatType, samples: 4,
+    });
+    composer = new EffectComposer(renderer, rt);
+    composer.addPass(new RenderPass(scene, camera));
+    // (resolucion, fuerza, radio, umbral) — solo brilla lo muy luminoso
+    composer.addPass(new UnrealBloomPass(
+      new THREE.Vector2(dbs.x, dbs.y), 0.62, 0.45, 0.72));
+    composer.addPass(new OutputPass());
+  }
+
   addEventListener('resize', () => {
     camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight);
+    if (composer) composer.setSize(innerWidth, innerHeight);
   });
 
   /* ---------- bucle ---------- */
@@ -374,7 +448,8 @@ function initScene() {
     screenLight.intensity = 6 + Math.sin(t * 9) * 0.6;
     dust.rotation.y = t * 0.03;
 
-    renderer.render(scene, camera);
+    if (composer) composer.render();
+    else renderer.render(scene, camera);
     requestAnimationFrame(loop);
   }
   requestAnimationFrame(loop);
