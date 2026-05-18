@@ -127,13 +127,12 @@ function initScene() {
   renderer.setPixelRatio(Math.min(devicePixelRatio, LOW ? 1.5 : 2));
   renderer.setSize(innerWidth, innerHeight);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 1.1;
   renderer.shadowMap.enabled = !LOW;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color('#05030c');
-  scene.fog = new THREE.Fog('#05030c', 9, 22);
 
   const camera = new THREE.PerspectiveCamera(46, innerWidth / innerHeight, 0.1, 100);
   camera.position.set(0, 2.2, 6);
@@ -150,17 +149,21 @@ function initScene() {
   pmrem.compileEquirectangularShader();
   let hdriReady = false;
   new RGBELoader().load('assets/neon_photostudio_2k.hdr', (tex) => {
+    tex.mapping = THREE.EquirectangularReflectionMapping;
     const envMap = pmrem.fromEquirectangular(tex).texture;
     scene.environment = envMap;
-    tex.dispose();
+    // el HDRI tambien como fondo: la cabina dentro de un estudio real
+    scene.background = tex;
+    scene.backgroundBlurriness = 0.08;
+    scene.backgroundIntensity = 1.0;
     pmrem.dispose();
     hdriReady = true;
     tryReveal();
   }, undefined, () => { hdriReady = true; tryReveal(); });
 
   /* --- luces --- */
-  // luz principal: proyecta la sombra de la cabina
-  const key = new THREE.DirectionalLight('#fff4e6', 1.0);
+  // luz principal: da forma a la cabina y proyecta su sombra de contacto
+  const key = new THREE.DirectionalLight('#fff4e6', 1.6);
   key.position.set(-4, 7, 4);
   key.target.position.set(0, 1.6, 0);
   scene.add(key, key.target);
@@ -176,48 +179,21 @@ function initScene() {
     key.shadow.bias = -0.0016;
     key.shadow.radius = 4;
   }
-  // luz de relleno del color de la pantalla
-  const screenLight = new THREE.PointLight('#1ee6e6', 5, 9);
+  // relleno suave
+  const hemi = new THREE.HemisphereLight('#cdd6f0', '#2a2438', 0.45);
+  scene.add(hemi);
+  // brillo del color de la pantalla sobre la cabina
+  const screenLight = new THREE.PointLight('#1ee6e6', 1.2, 8);
   screenLight.position.set(0, 2.4, 2);
   scene.add(screenLight);
-  // acento neon
-  const accent = new THREE.PointLight('#ff2e88', 3, 11);
-  accent.position.set(3.5, 2.5, 1.5);
-  scene.add(accent);
 
-  /* --- suelo --- */
+  /* --- suelo: invisible, solo recibe la sombra de contacto --- */
   const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(50, 50),
-    new THREE.MeshStandardMaterial({ color: '#0c0820', roughness: 0.4, metalness: 0.5 }));
+    new THREE.PlaneGeometry(60, 60),
+    new THREE.ShadowMaterial({ opacity: 0.5 }));
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = true;
   scene.add(floor);
-
-  /* --- charco de luz bajo la cabina --- */
-  const poolC = document.createElement('canvas'); poolC.width = poolC.height = 128;
-  const pc = poolC.getContext('2d');
-  const pg = pc.createRadialGradient(64, 64, 4, 64, 64, 64);
-  pg.addColorStop(0, 'rgba(30,230,230,.5)'); pg.addColorStop(1, 'rgba(30,230,230,0)');
-  pc.fillStyle = pg; pc.fillRect(0, 0, 128, 128);
-  const pool = new THREE.Mesh(
-    new THREE.PlaneGeometry(6, 6),
-    new THREE.MeshBasicMaterial({
-      map: new THREE.CanvasTexture(poolC), transparent: true, depthWrite: false }));
-  pool.rotation.x = -Math.PI / 2; pool.position.y = 0.02;
-  scene.add(pool);
-
-  /* --- polvo --- */
-  const dustGeo = new THREE.BufferGeometry();
-  const dn = 130, dpos = new Float32Array(dn * 3);
-  for (let i = 0; i < dn; i++) {
-    dpos[i * 3] = (Math.random() - 0.5) * 14;
-    dpos[i * 3 + 1] = Math.random() * 6;
-    dpos[i * 3 + 2] = (Math.random() - 0.5) * 10;
-  }
-  dustGeo.setAttribute('position', new THREE.BufferAttribute(dpos, 3));
-  const dust = new THREE.Points(dustGeo, new THREE.PointsMaterial({
-    color: '#6effff', size: 0.035, transparent: true, opacity: 0.45 }));
-  scene.add(dust);
 
   /* ---------- carga del modelo de la cabina ---------- */
   let cabinet = null;     // gltf.scene
@@ -252,7 +228,7 @@ function initScene() {
       o.castShadow = true;
       o.receiveShadow = true;
       if (o.material) {
-        o.material.envMapIntensity = 0.7;
+        o.material.envMapIntensity = 1.0;
         if (o.material.name === 'Screen') screenMesh = o;
       }
     });
@@ -263,7 +239,7 @@ function initScene() {
         map: screenTex,
         emissive: 0xffffff,
         emissiveMap: screenTex,
-        emissiveIntensity: 1.15,
+        emissiveIntensity: 0.9,
         roughness: 0.3,
         metalness: 0.0,
       });
@@ -299,7 +275,7 @@ function initScene() {
     if (front.lengthSq() < 1e-4) front.set(0, 0, 1);
     front.normalize();
 
-    const wideDist = (mSize.y * 0.62) / Math.tan(fov / 2);
+    const wideDist = (mSize.y * 0.5) / Math.tan(fov / 2);
     VIEW.wide.pos.copy(mCenter)
       .addScaledVector(front, wideDist);
     VIEW.wide.pos.y = mCenter.y + mSize.y * 0.10;
@@ -327,7 +303,7 @@ function initScene() {
     composer = new EffectComposer(renderer, rt);
     composer.addPass(new RenderPass(scene, camera));
     composer.addPass(new UnrealBloomPass(
-      new THREE.Vector2(dbs.x, dbs.y), 0.55, 0.5, 0.75));
+      new THREE.Vector2(dbs.x, dbs.y), 0.18, 0.3, 0.85));
     composer.addPass(new OutputPass());
   }
 
@@ -441,8 +417,7 @@ function initScene() {
       camera.lookAt(lookCur);
     }
 
-    screenLight.intensity = 5 + Math.sin(t * 9) * 0.5;
-    dust.rotation.y = t * 0.025;
+    screenLight.intensity = 1.2 + Math.sin(t * 9) * 0.15;
 
     if (composer) composer.render();
     else renderer.render(scene, camera);

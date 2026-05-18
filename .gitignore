@@ -1,5 +1,8 @@
 # Archivos del companion visual de brainstorming
 .superpowers/
 
+# Herramientas de depuración (local)
+tools/
+
 # macOS
 .DS_Store
