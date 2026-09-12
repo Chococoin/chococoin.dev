@@ -6,7 +6,7 @@ import { RenderPass } from '../vendor/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from '../vendor/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from '../vendor/jsm/postprocessing/OutputPass.js';
 import { GLTFLoader } from '../vendor/jsm/loaders/GLTFLoader.js';
-import { RGBELoader } from '../vendor/jsm/loaders/RGBELoader.js';
+import { buildRoom } from './room.js';
 import { PROJECTS, PROFILE } from './projects.js';
 import * as Screen from './screen.js';
 
@@ -132,7 +132,8 @@ function initScene() {
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color('#05030c');
+  scene.background = new THREE.Color('#0a0a0c');
+  scene.fog = new THREE.Fog('#0a0a0c', 9, 21);
 
   const camera = new THREE.PerspectiveCamera(46, innerWidth / innerHeight, 0.1, 100);
   camera.position.set(0, 2.2, 6);
@@ -144,22 +145,24 @@ function initScene() {
   screenTex.colorSpace = THREE.SRGBColorSpace;
   screenTex.flipY = true;
 
-  /* --- iluminacion HDRI (entorno real) --- */
-  const pmrem = new THREE.PMREMGenerator(renderer);
-  pmrem.compileEquirectangularShader();
-  let hdriReady = false;
-  new RGBELoader().load('assets/neon_photostudio_2k.hdr', (tex) => {
-    tex.mapping = THREE.EquirectangularReflectionMapping;
-    const envMap = pmrem.fromEquirectangular(tex).texture;
-    scene.environment = envMap;
-    // el HDRI tambien como fondo: la cabina dentro de un estudio real
-    scene.background = tex;
-    scene.backgroundBlurriness = 0.08;
-    scene.backgroundIntensity = 1.0;
+  /* --- sala arcade en grises + reflejos generados desde la propia sala --- */
+  const room = buildRoom(scene, { low: LOW, maxAniso: renderer.capabilities.getMaxAnisotropy() });
+  let hdriReady = false; // (nombre heredado) = entorno listo
+  {
+    // la sala se fotografia desde la altura de la pantalla para el mapa de entorno
+    const envScene = new THREE.Scene();
+    envScene.background = new THREE.Color('#0a0a0c');
+    scene.remove(room.group);
+    room.group.position.y = -1.6;
+    envScene.add(room.group, new THREE.HemisphereLight('#ffffff', '#222222', 1.2));
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(envScene, 0.06).texture;
     pmrem.dispose();
+    envScene.remove(room.group);
+    room.group.position.y = 0;
+    scene.add(room.group);
     hdriReady = true;
-    tryReveal();
-  }, undefined, () => { hdriReady = true; tryReveal(); });
+  }
 
   /* --- luces --- */
   // luz principal: da forma a la cabina y proyecta su sombra de contacto
@@ -187,17 +190,19 @@ function initScene() {
   screenLight.position.set(0, 2.4, 2);
   scene.add(screenLight);
 
-  /* --- suelo: invisible, solo recibe la sombra de contacto --- */
+  /* --- sombra de contacto extra sobre el suelo de la sala --- */
   const floor = new THREE.Mesh(
-    new THREE.PlaneGeometry(60, 60),
-    new THREE.ShadowMaterial({ opacity: 0.5 }));
+    new THREE.PlaneGeometry(12, 12),
+    new THREE.ShadowMaterial({ opacity: 0.35 }));
   floor.rotation.x = -Math.PI / 2;
+  floor.position.y = 0.002;
   floor.receiveShadow = true;
   scene.add(floor);
 
   /* ---------- carga del modelo de la cabina ---------- */
   let cabinet = null;     // gltf.scene
   let screenMesh = null;  // malla de la pantalla
+  let sideArtMesh = null; // malla con el arte lateral y la marquesina
   let modelReady = false;
   const VIEW = {
     wide:   { pos: new THREE.Vector3(0, 2.2, 6), look: new THREE.Vector3(0, 1.6, 0) },
@@ -234,6 +239,7 @@ function initScene() {
         o.material.depthWrite = true;
         o.material.needsUpdate = true;
         if (o.material.name === 'Screen') screenMesh = o;
+        if (o.material.name === 'material') sideArtMesh = o;
       }
     });
 
@@ -252,12 +258,83 @@ function initScene() {
 
     scene.add(cabinet);
     computeViews();
+    Screen.fontsLoaded.then(() => patchMarquee(sideArtMesh));
     modelReady = true;
     tryReveal();
   }, undefined, (err) => {
     console.error('No se pudo cargar el modelo:', err);
     buildFallback();
   });
+
+  /* ---------- marquesina: "FULLSTACK WEB3" en lugar de "TWOFISH SERPENT" ----------
+     El rotulo original esta pintado en material_baseColor.png (rect. aprox. x 146-368,
+     y 290-378 de 512; el mapeado UV invierte el eje vertical). Se repinta
+     ese rectangulo en un canvas ampliado y se usa tambien como mapa emisivo. */
+  function patchMarquee(mesh) {
+    if (!mesh || !mesh.material) return;
+    new THREE.TextureLoader().load('assets/cabinet/textures/material_baseColor.png', (baseTex) => {
+      const src = baseTex.image;
+      const S = 2048, k = S / 512;
+      const R = { x: 146 * k, y: 290 * k, w: 222 * k, h: 88 * k };
+      const mkCanvas = () => {
+        const c = document.createElement('canvas');
+        c.width = c.height = S;
+        return [c, c.getContext('2d')];
+      };
+      const [base, bctx] = mkCanvas();
+      bctx.drawImage(src, 0, 0, S, S);
+      const [emis, ectx] = mkCanvas();
+      ectx.fillStyle = '#000';
+      ectx.fillRect(0, 0, S, S);
+
+      const drawText = (g, withPlate) => {
+        g.save();
+        g.translate(R.x + R.w / 2, R.y + R.h / 2);
+        g.scale(1, -1); // el mapeado UV de la marquesina invierte el eje vertical
+        if (withPlate) {
+          g.fillStyle = '#07060f';
+          g.beginPath();
+          g.roundRect(-R.w / 2, -R.h / 2, R.w, R.h, 26);
+          g.fill();
+        }
+        g.textAlign = 'center';
+        g.textBaseline = 'middle';
+        // Press Start 2P: cada caracter mide lo mismo que el tamano de fuente
+        const f1 = Math.round(Math.min(R.h * 0.30, (R.w * 0.86) / 9));
+        const f2 = Math.round(Math.min(R.h * 0.42, (R.w * 0.86) / 4));
+        // linea 1: FULLSTACK (amarillo con sombra rosa)
+        g.font = `${f1}px "Press Start 2P", monospace`;
+        g.fillStyle = '#ff2e88';
+        g.fillText('FULLSTACK', 5, -R.h * 0.22 + 5);
+        g.fillStyle = '#ffe22e';
+        g.fillText('FULLSTACK', 0, -R.h * 0.22);
+        // linea 2: WEB3 (cian con sombra rosa)
+        g.font = `${f2}px "Press Start 2P", monospace`;
+        g.fillStyle = '#ff2e88';
+        g.fillText('WEB3', 6, R.h * 0.22 + 6);
+        g.fillStyle = '#1ee6e6';
+        g.fillText('WEB3', 0, R.h * 0.22);
+        g.restore();
+      };
+      drawText(bctx, true);
+      drawText(ectx, false);
+
+      const mkTex = (c) => {
+        const t = new THREE.CanvasTexture(c);
+        t.flipY = false;
+        t.colorSpace = THREE.SRGBColorSpace;
+        t.wrapS = baseTex.wrapS; t.wrapT = baseTex.wrapT;
+        t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        return t;
+      };
+      const m = mesh.material;
+      m.map = mkTex(base);
+      m.emissiveMap = mkTex(emis);
+      m.emissive = new THREE.Color(0xffffff);
+      m.emissiveIntensity = 1.0;
+      m.needsUpdate = true;
+    });
+  }
 
   // calcula encuadres de camara a partir del modelo cargado
   function computeViews() {
@@ -422,6 +499,7 @@ function initScene() {
     }
 
     screenLight.intensity = 1.2 + Math.sin(t * 9) * 0.15;
+    room.update(t);
 
     if (composer) composer.render();
     else renderer.render(scene, camera);
