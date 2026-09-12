@@ -1,0 +1,529 @@
+{
+  "_readme": "Único archivo de contenido. Todo lo que está vacío en `placeholders` se muestra en la web como [PENDIENTE]. Los textos por idioma están en es / en / it y deben tener la misma estructura (lo comprueba `npm test`).",
+  "placeholders": {
+    "FOODCHAIN_INICIO": "",
+    "FOODCHAIN_FIN": "",
+    "EMAIL": "g.lugo.dev@gmail.com",
+    "GITHUB_URL": "https://github.com/Chococoin",
+    "CV_URL": "/cv/german-lugo-cv-{lang}.pdf",
+    "SCREENSHOT_PAGINE_AZZURRE": "",
+    "SCREENSHOT_FLOWPACK": "",
+    "SCREENSHOT_CHOCOSFERA": ""
+  },
+  "links": {
+    "linkedin": "https://linkedin.com/in/germán-lugo-73255b201",
+    "pagineAzzurre": "https://pagineazzurre.net",
+    "chocosfera": "https://chocosfera.com",
+    "arcade": "/arcade/"
+  },
+  "stack": [
+    {
+      "id": "backend",
+      "items": [
+        "Node.js",
+        "TypeScript",
+        "PHP / Laravel",
+        "REST APIs"
+      ]
+    },
+    {
+      "id": "frontend",
+      "items": [
+        "React",
+        "Next.js"
+      ]
+    },
+    {
+      "id": "data",
+      "items": [
+        "MongoDB",
+        "MySQL",
+        "Prisma"
+      ]
+    },
+    {
+      "id": "infra",
+      "items": [
+        "Vercel",
+        "CI/CD",
+        "staging / producción",
+        "Docker"
+      ]
+    },
+    {
+      "id": "extras",
+      "items": [
+        "WhatsApp Business API",
+        "MailerSend",
+        "Web3.js",
+        "Solidity",
+        "Telegram bots",
+        "AI tooling"
+      ]
+    }
+  ],
+  "experienceStack": [
+    "Node.js",
+    "JavaScript",
+    "Web3.js",
+    "Solidity",
+    "React"
+  ],
+  "projectsMeta": [
+    {
+      "id": "pagine",
+      "name": "Pagine Azzurre",
+      "domain": "pagineazzurre.net",
+      "linkKey": "pagineAzzurre",
+      "screenshotKey": "SCREENSHOT_PAGINE_AZZURRE",
+      "stack": [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "Vercel"
+      ],
+      "kind": "client"
+    },
+    {
+      "id": "flowpack",
+      "name": "FlowPack",
+      "domain": "",
+      "linkKey": "",
+      "screenshotKey": "SCREENSHOT_FLOWPACK",
+      "stack": [
+        "Node.js",
+        "TypeScript",
+        "MongoDB"
+      ],
+      "kind": "client"
+    },
+    {
+      "id": "chocosfera",
+      "name": "Chocósfera",
+      "domain": "chocosfera.com",
+      "linkKey": "chocosfera",
+      "screenshotKey": "SCREENSHOT_CHOCOSFERA",
+      "stack": [
+        "Next.js",
+        "Prisma",
+        "Solidity",
+        "Web3.js",
+        "Telegram Bot API",
+        "MailerSend",
+        "Three.js"
+      ],
+      "kind": "own"
+    }
+  ],
+  "es": {
+    "pending": "[PENDIENTE]",
+    "meta": {
+      "title": "Germán Lugo · Full stack developer",
+      "description": "Full stack developer en la Toscana: Node.js, TypeScript, Laravel, MongoDB y Web3 desde 2013. Proyectos en producción y disponible para trabajo remoto."
+    },
+    "nav": {
+      "stack": "Stack",
+      "experience": "Experiencia",
+      "projects": "Proyectos",
+      "about": "Sobre mí",
+      "contact": "Contacto",
+      "arcade": "Arcade"
+    },
+    "hero": {
+      "prompt": "whoami",
+      "name": "Germán Lugo",
+      "tagline": "Full stack developer · Node.js · TypeScript · Laravel · MongoDB",
+      "intro": "Soy el geek de la familia: el que arregla todo lo que tenga cable y, de paso, construye plataformas que aguantan usuarios reales. Vivo en la Toscana, trabajo en remoto y llevo en Web3 desde 2013, cuando todavía había que explicar qué era.",
+      "location": "Toscana, Italia",
+      "availability": "Disponible para trabajo remoto",
+      "arcadeLabel": "abrir la versión 3D",
+      "ctaProjects": "Ver proyectos",
+      "ctaCv": "Descargar CV",
+      "ctaContact": "Contacto"
+    },
+    "stack": {
+      "title": "Stack",
+      "lead": "Lo que uso a diario. Sin adornos.",
+      "groups": {
+        "backend": "Backend",
+        "frontend": "Frontend",
+        "data": "Datos",
+        "infra": "Infra",
+        "extras": "Extras"
+      },
+      "aiNote": "Uso intensivo de herramientas de IA en el flujo de desarrollo."
+    },
+    "experience": {
+      "title": "Experiencia",
+      "company": "Foodchain SpA",
+      "role": "Full stack developer",
+      "context": "I3P, incubadora del Politecnico di Torino",
+      "description": "Startup de trazabilidad agroalimentaria con blockchain propia (Quadrans). Tres contribuciones concretas:",
+      "periodLabel": "Periodo",
+      "stackLabel": "Stack",
+      "contributions": [
+        {
+          "title": "Proxy de monitoreo de mineros",
+          "text": "Servicio que registraba el tiempo de conexión de cada nodo minero y calculaba la recompensa proporcional a ese uptime."
+        },
+        {
+          "title": "Automatización de pagos en cripto",
+          "text": "Pipeline que enviaba automáticamente tokens a cada usuario recién registrado según la política de onboarding; de proceso manual a cero intervención."
+        },
+        {
+          "title": "Visualizador de trazabilidad",
+          "text": "Aplicación web que leía los datos on-chain de cada lote y los mostraba como recorrido visual del producto, del productor al consumidor. Frontend completo, lectura de la cadena y revisión de los smart contracts involucrados."
+        }
+      ]
+    },
+    "projects": {
+      "title": "Proyectos",
+      "lead": "Dos plataformas construidas para clientes y una propia. Las tres en producción, con usuarios que se quejan cuando fallan.",
+      "labels": {
+        "problem": "Problema",
+        "role": "Rol",
+        "stack": "Stack",
+        "metric": "Métrica",
+        "visit": "Visitar",
+        "screenshot": "Captura",
+        "own": "Proyecto propio",
+        "client": "Para cliente"
+      },
+      "items": {
+        "pagine": {
+          "problem": "Marketplace de intercambio de la comunidad italiana con moneda complementaria VAL: ofrecer, buscar y donar productos, servicios y competencias gastando menos euros.",
+          "role": "Arquitecto y desarrollador del proyecto completo para el cliente.",
+          "metric": "~600 usuarios activos en producción"
+        },
+        "flowpack": {
+          "problem": "SaaS multi-tenant de logística (entregas y recogidas) para transportistas y agencias. Clasificación de incidencias asistida por IA, notificaciones multicanal (WhatsApp, email, webhooks), importación masiva por CSV, integraciones con carriers, aislamiento por tenant con auditoría de seguridad.",
+          "role": "Único desarrollador y arquitecto; producto, backend, frontend, CI/CD con staging y producción.",
+          "metric": "Piloto en producción con clientes reales del sector logístico"
+        },
+        "chocosfera": {
+          "problem": "Trazabilidad ética de cacao con blockchain: un bot de Telegram permite al cacaocultor fotografiar el árbol, capturar la geolocalización y emitir un certificado digital tokenizado; el mismo canal conecta productor y comprador.",
+          "role": "Fundador y desarrollador.",
+          "metric": "Datos de campo reales de cacaocultores en Venezuela · precursor ChocoCoin (fork de Bitcoin, 2013–14)"
+        }
+      }
+    },
+    "about": {
+      "title": "Sobre mí",
+      "facts": [
+        {
+          "k": "desde",
+          "v": "Autodidacta construyendo en Web3 desde 2013."
+        },
+        {
+          "k": "escuela",
+          "v": "École 42 Firenze."
+        },
+        {
+          "k": "roles",
+          "v": "Solopreneur: CEO, arquitecto y desarrollador a la vez. Sé lo que cuesta cada decisión técnica en euros y en horas de sueño."
+        },
+        {
+          "k": "idiomas",
+          "v": "Español, italiano, inglés. Los tres sin acento de Google Translate."
+        },
+        {
+          "k": "método",
+          "v": "Trabajo asíncrono y documentado por costumbre, no por imposición."
+        },
+        {
+          "k": "supervisor",
+          "v": "Choco, el perro. Revisa cada despliegue desde debajo del escritorio."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Contacto",
+      "lead": "Si llegaste hasta aquí ya leíste más que la mayoría. Escríbeme.",
+      "email": "Email",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "closing": "Respondo antes de que termine tu npm install."
+    },
+    "footer": "Hecho a mano en la Toscana. Sin plantillas, con café.",
+    "cv": {
+      "title": "CV · Germán Lugo",
+      "download": "Descargar PDF",
+      "print": "Imprimir",
+      "back": "Volver al portafolio"
+    }
+  },
+  "en": {
+    "pending": "[PENDING]",
+    "meta": {
+      "title": "Germán Lugo · Full stack developer",
+      "description": "Full stack developer based in Tuscany: Node.js, TypeScript, Laravel, MongoDB and Web3 since 2013. Projects in production, open to remote work."
+    },
+    "nav": {
+      "stack": "Stack",
+      "experience": "Experience",
+      "projects": "Projects",
+      "about": "About",
+      "contact": "Contact",
+      "arcade": "Arcade"
+    },
+    "hero": {
+      "prompt": "whoami",
+      "name": "Germán Lugo",
+      "tagline": "Full stack developer · Node.js · TypeScript · Laravel · MongoDB",
+      "intro": "I'm the family geek: the one who fixes anything with a cable and, on the side, builds platforms that survive real users. I live in Tuscany, work remotely, and have been in Web3 since 2013, back when you still had to explain what it was.",
+      "location": "Tuscany, Italy",
+      "availability": "Open to remote work",
+      "arcadeLabel": "open the 3D version",
+      "ctaProjects": "See projects",
+      "ctaCv": "Download CV",
+      "ctaContact": "Contact"
+    },
+    "stack": {
+      "title": "Stack",
+      "lead": "What I use every day. No padding.",
+      "groups": {
+        "backend": "Backend",
+        "frontend": "Frontend",
+        "data": "Data",
+        "infra": "Infra",
+        "extras": "Extras"
+      },
+      "aiNote": "Heavy use of AI tooling throughout the development workflow."
+    },
+    "experience": {
+      "title": "Experience",
+      "company": "Foodchain SpA",
+      "role": "Full stack developer",
+      "context": "I3P, Politecnico di Torino incubator",
+      "description": "Agri-food traceability startup with its own blockchain (Quadrans). Three concrete contributions:",
+      "periodLabel": "Period",
+      "stackLabel": "Stack",
+      "contributions": [
+        {
+          "title": "Miner monitoring proxy",
+          "text": "Service that logged each mining node's connection time and computed a reward proportional to that uptime."
+        },
+        {
+          "title": "Automated crypto payouts",
+          "text": "Pipeline that automatically sent tokens to every newly registered user according to the onboarding policy; from a manual process to zero intervention."
+        },
+        {
+          "title": "Traceability viewer",
+          "text": "Web app that read each batch's on-chain data and rendered it as the product's visual journey, from producer to consumer. Full frontend, chain reads, and review of the smart contracts involved."
+        }
+      ]
+    },
+    "projects": {
+      "title": "Projects",
+      "lead": "Two platforms built for clients and one of my own. All three in production, with users who complain when they break.",
+      "labels": {
+        "problem": "Problem",
+        "role": "Role",
+        "stack": "Stack",
+        "metric": "Metric",
+        "visit": "Visit",
+        "screenshot": "Screenshot",
+        "own": "Own project",
+        "client": "Client work"
+      },
+      "items": {
+        "pagine": {
+          "problem": "Exchange marketplace for the Italian community with the VAL complementary currency: offer, find and donate products, services and skills while spending fewer euros.",
+          "role": "Architect and developer of the whole project for the client.",
+          "metric": "~600 active users in production"
+        },
+        "flowpack": {
+          "problem": "Multi-tenant logistics SaaS (deliveries and pickups) for carriers and agencies. AI-assisted incident classification, multichannel notifications (WhatsApp, email, webhooks), bulk CSV import, carrier integrations, per-tenant isolation with security audit.",
+          "role": "Sole developer and architect; product, backend, frontend, CI/CD with staging and production.",
+          "metric": "Production pilot with real logistics-sector clients"
+        },
+        "chocosfera": {
+          "problem": "Ethical cocoa traceability on blockchain: a Telegram bot lets the grower photograph the tree, capture geolocation and issue a tokenized digital certificate; the same channel connects producer and buyer.",
+          "role": "Founder and developer.",
+          "metric": "Real field data from cocoa growers in Venezuela · precursor ChocoCoin (Bitcoin fork, 2013–14)"
+        }
+      }
+    },
+    "about": {
+      "title": "About",
+      "facts": [
+        {
+          "k": "since",
+          "v": "Self-taught, building in Web3 since 2013."
+        },
+        {
+          "k": "school",
+          "v": "École 42 Firenze."
+        },
+        {
+          "k": "roles",
+          "v": "Solopreneur: CEO, architect and developer at once. I know what every technical decision costs in euros and in hours of sleep."
+        },
+        {
+          "k": "languages",
+          "v": "Spanish, Italian, English. None of them with a Google Translate accent."
+        },
+        {
+          "k": "method",
+          "v": "Async and documented by habit, not by mandate."
+        },
+        {
+          "k": "supervisor",
+          "v": "Choco, the dog. Reviews every deploy from under the desk."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Contact",
+      "lead": "If you made it this far you've read more than most. Say hi.",
+      "email": "Email",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "closing": "I reply before your npm install finishes."
+    },
+    "footer": "Handmade in Tuscany. No templates, some coffee.",
+    "cv": {
+      "title": "CV · Germán Lugo",
+      "download": "Download PDF",
+      "print": "Print",
+      "back": "Back to portfolio"
+    }
+  },
+  "it": {
+    "pending": "[DA COMPILARE]",
+    "meta": {
+      "title": "Germán Lugo · Full stack developer",
+      "description": "Full stack developer in Toscana: Node.js, TypeScript, Laravel, MongoDB e Web3 dal 2013. Progetti in produzione, disponibile per lavoro da remoto."
+    },
+    "nav": {
+      "stack": "Stack",
+      "experience": "Esperienza",
+      "projects": "Progetti",
+      "about": "Chi sono",
+      "contact": "Contatti",
+      "arcade": "Arcade"
+    },
+    "hero": {
+      "prompt": "whoami",
+      "name": "Germán Lugo",
+      "tagline": "Full stack developer · Node.js · TypeScript · Laravel · MongoDB",
+      "intro": "Sono il geek di famiglia: quello che aggiusta tutto ciò che ha un cavo e, nel frattempo, costruisce piattaforme che reggono utenti veri. Vivo in Toscana, lavoro da remoto e sono nel Web3 dal 2013, quando ancora bisognava spiegare cos'era.",
+      "location": "Toscana, Italia",
+      "availability": "Disponibile per lavoro da remoto",
+      "arcadeLabel": "apri la versione 3D",
+      "ctaProjects": "Vedi progetti",
+      "ctaCv": "Scarica CV",
+      "ctaContact": "Contatti"
+    },
+    "stack": {
+      "title": "Stack",
+      "lead": "Quello che uso ogni giorno. Senza fronzoli.",
+      "groups": {
+        "backend": "Backend",
+        "frontend": "Frontend",
+        "data": "Dati",
+        "infra": "Infra",
+        "extras": "Extra"
+      },
+      "aiNote": "Uso intensivo di strumenti di IA nel flusso di sviluppo."
+    },
+    "experience": {
+      "title": "Esperienza",
+      "company": "Foodchain SpA",
+      "role": "Full stack developer",
+      "context": "I3P, incubatore del Politecnico di Torino",
+      "description": "Startup di tracciabilità agroalimentare con blockchain propria (Quadrans). Tre contributi concreti:",
+      "periodLabel": "Periodo",
+      "stackLabel": "Stack",
+      "contributions": [
+        {
+          "title": "Proxy di monitoraggio dei miner",
+          "text": "Servizio che registrava il tempo di connessione di ogni nodo miner e calcolava la ricompensa proporzionale a quell'uptime."
+        },
+        {
+          "title": "Automazione dei pagamenti in cripto",
+          "text": "Pipeline che inviava automaticamente token a ogni nuovo utente registrato secondo la policy di onboarding; da processo manuale a zero interventi."
+        },
+        {
+          "title": "Visualizzatore di tracciabilità",
+          "text": "Applicazione web che leggeva i dati on-chain di ogni lotto e li mostrava come percorso visivo del prodotto, dal produttore al consumatore. Frontend completo, lettura della chain e revisione degli smart contract coinvolti."
+        }
+      ]
+    },
+    "projects": {
+      "title": "Progetti",
+      "lead": "Due piattaforme costruite per clienti e una mia. Tutte e tre in produzione, con utenti che si lamentano quando si rompono.",
+      "labels": {
+        "problem": "Problema",
+        "role": "Ruolo",
+        "stack": "Stack",
+        "metric": "Metrica",
+        "visit": "Visita",
+        "screenshot": "Screenshot",
+        "own": "Progetto personale",
+        "client": "Per cliente"
+      },
+      "items": {
+        "pagine": {
+          "problem": "Marketplace di scambio della comunità italiana con moneta complementare VAL: offrire, cercare e donare prodotti, servizi e competenze spendendo meno euro.",
+          "role": "Architetto e sviluppatore dell'intero progetto per il cliente.",
+          "metric": "~600 utenti attivi in produzione"
+        },
+        "flowpack": {
+          "problem": "SaaS multi-tenant per la logistica (consegne e ritiri) per trasportatori e agenzie. Classificazione delle anomalie assistita dall'IA, notifiche multicanale (WhatsApp, email, webhook), import massivo da CSV, integrazioni con i corrieri, isolamento per tenant con audit di sicurezza.",
+          "role": "Unico sviluppatore e architetto; prodotto, backend, frontend, CI/CD con staging e produzione.",
+          "metric": "Pilota in produzione con clienti reali del settore logistico"
+        },
+        "chocosfera": {
+          "problem": "Tracciabilità etica del cacao su blockchain: un bot Telegram permette al coltivatore di fotografare l'albero, acquisire la geolocalizzazione ed emettere un certificato digitale tokenizzato; lo stesso canale collega produttore e acquirente.",
+          "role": "Fondatore e sviluppatore.",
+          "metric": "Dati di campo reali di coltivatori di cacao in Venezuela · precursore ChocoCoin (fork di Bitcoin, 2013–14)"
+        }
+      }
+    },
+    "about": {
+      "title": "Chi sono",
+      "facts": [
+        {
+          "k": "dal",
+          "v": "Autodidatta, costruisco nel Web3 dal 2013."
+        },
+        {
+          "k": "scuola",
+          "v": "École 42 Firenze."
+        },
+        {
+          "k": "ruoli",
+          "v": "Solopreneur: CEO, architetto e sviluppatore insieme. So quanto costa ogni decisione tecnica in euro e in ore di sonno."
+        },
+        {
+          "k": "lingue",
+          "v": "Spagnolo, italiano, inglese. Nessuna con l'accento di Google Translate."
+        },
+        {
+          "k": "metodo",
+          "v": "Lavoro asincrono e documentato per abitudine, non per imposizione."
+        },
+        {
+          "k": "supervisore",
+          "v": "Choco, il cane. Controlla ogni deploy da sotto la scrivania."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Contatti",
+      "lead": "Se sei arrivato fin qui hai letto più della maggior parte. Scrivimi.",
+      "email": "Email",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "closing": "Rispondo prima che finisca il tuo npm install."
+    },
+    "footer": "Fatto a mano in Toscana. Niente template, un po' di caffè.",
+    "cv": {
+      "title": "CV · Germán Lugo",
+      "download": "Scarica PDF",
+      "print": "Stampa",
+      "back": "Torna al portfolio"
+    }
+  }
+}

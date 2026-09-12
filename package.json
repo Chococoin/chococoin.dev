@@ -1,0 +1,25 @@
+{
+  "name": "portafolio-chococoin",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Portafolio de Germán Lugo (chococoin.dev): landing en tres idiomas + versión arcade 3D en /arcade/",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "cv:pdf": "next build && node scripts/cv-pdf.mjs && next build",
+    "start": "npx serve out",
+    "test": "node --test tests/*.test.mjs",
+    "deploy": "npm run build && rsync -rtvz --omit-dir-times --delete out/ stellar:public_html/"
+  },
+  "dependencies": {
+    "next": "^16.3.5",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}

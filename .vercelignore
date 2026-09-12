@@ -1,0 +1,7 @@
+# No subir a Vercel: herramientas locales, propuesta de diseño y artefactos de build
+tools/
+design/
+out/
+.next/
+node_modules/
+.superpowers/

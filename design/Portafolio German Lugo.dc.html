@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#0E0F12;color:#E8E6E1;font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#E8871E}a:hover{color:#F5A34A}
+::selection{background:#E8871E;color:#0E0F12}
+@keyframes gl-blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+:focus-visible{outline:2px solid #E8871E;outline-offset:3px;border-radius:4px}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#0E0F12;color:#E8E6E1;font-family:Manrope,system-ui,sans-serif;font-size:16px;line-height:1.6">
+
+<nav aria-label="Principal" style="position:sticky;top:0;z-index:10;background:rgba(14,15,18,.85);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.07)">
+<div style="max-width:1080px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+<a href="#top" style="font-family:'Fira Code',monospace;font-size:13px;color:#E8E6E1;text-decoration:none;display:flex;align-items:center;gap:8px"><span style="color:#E8871E">~/</span>german-lugo</a>
+<div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">
+<a href="#stack" style="font-size:13px;font-weight:600;color:#9A9891;text-decoration:none;padding:6px 10px;border-radius:6px" style-hover="color:#E8E6E1;background:rgba(255,255,255,.05)">{{ t.nav.stack }}</a>
+<a href="#experiencia" style="font-size:13px;font-weight:600;color:#9A9891;text-decoration:none;padding:6px 10px;border-radius:6px" style-hover="color:#E8E6E1;background:rgba(255,255,255,.05)">{{ t.nav.experience }}</a>
+<a href="#proyectos" style="font-size:13px;font-weight:600;color:#9A9891;text-decoration:none;padding:6px 10px;border-radius:6px" style-hover="color:#E8E6E1;background:rgba(255,255,255,.05)">{{ t.nav.projects }}</a>
+<a href="#sobre-mi" style="font-size:13px;font-weight:600;color:#9A9891;text-decoration:none;padding:6px 10px;border-radius:6px" style-hover="color:#E8E6E1;background:rgba(255,255,255,.05)">{{ t.nav.about }}</a>
+<a href="#contacto" style="font-size:13px;font-weight:600;color:#9A9891;text-decoration:none;padding:6px 10px;border-radius:6px" style-hover="color:#E8E6E1;background:rgba(255,255,255,.05)">{{ t.nav.contact }}</a>
+<div role="group" aria-label="Idioma" style="display:flex;gap:2px;margin-left:10px;padding:3px;border:1px solid rgba(255,255,255,.1);border-radius:8px;font-family:'Fira Code',monospace;font-size:12px">
+<sc-for list="{{ langs }}" as="l" hint-placeholder-count="3">
+<button type="button" onClick="{{ l.select }}" aria-pressed="{{ l.active }}" style="background:{{ l.bg }};color:{{ l.color }};border:0;border-radius:5px;padding:4px 8px;font:inherit;cursor:pointer;transition:background .15s">{{ l.code }}</button>
+</sc-for>
+</div>
+</div>
+</div>
+</nav>
+
+<main id="top" style="max-width:1080px;margin:0 auto;padding:0 24px">
+
+<header data-screen-label="Hero" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:48px;align-items:center;padding:88px 0 96px">
+<div style="display:flex;flex-direction:column;gap:22px">
+<div style="font-family:'Fira Code',monospace;font-size:13px;color:#9A9891;display:flex;align-items:center;gap:8px"><span style="color:#E8871E">$</span> {{ t.hero.prompt }}{{ cursor }}</div>
+<h1 style="margin:0;font-size:clamp(40px,6vw,64px);font-weight:800;line-height:1.02;letter-spacing:-.03em;color:#F4F2EE;text-wrap:balance">{{ t.hero.name }}</h1>
+<p style="margin:0;font-family:'Fira Code',monospace;font-size:14px;color:#E8871E;line-height:1.5">{{ t.hero.tagline }}</p>
+<p style="margin:0;font-size:18px;line-height:1.6;color:#C9C7C1;max-width:52ch;text-wrap:pretty">{{ t.hero.intro }}</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+<a href="#proyectos" style="display:inline-flex;align-items:center;gap:8px;background:#E8871E;color:#0E0F12;font-weight:700;font-size:14px;padding:11px 18px;border-radius:8px;text-decoration:none;transition:background .15s" style-hover="background:#F5A34A;color:#0E0F12">{{ t.hero.ctaProjects }} <span aria-hidden="true">→</span></a>
+<a href="{{ cvHref }}" download="{{ cvDownload }}" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#E8E6E1;font-weight:600;font-size:14px;padding:10px 18px;border-radius:8px;border:1px solid rgba(255,255,255,.16);text-decoration:none;transition:border-color .15s" style-hover="border-color:#E8871E;color:#E8E6E1">{{ t.hero.ctaCv }}<sc-if value="{{ cvPending }}" hint-placeholder-val="{{ false }}"><span style="font-family:'Fira Code',monospace;font-size:11px;color:#E8871E">{{ t.pending }}</span></sc-if></a>
+<a href="#contacto" style="display:inline-flex;align-items:center;background:transparent;color:#E8E6E1;font-weight:600;font-size:14px;padding:10px 18px;border-radius:8px;border:1px solid rgba(255,255,255,.16);text-decoration:none;transition:border-color .15s" style-hover="border-color:#E8871E;color:#E8E6E1">{{ t.hero.ctaContact }}</a>
+</div>
+</div>
+
+<aside aria-label="Resumen" style="background:#15171C;border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden;font-family:'Fira Code',monospace;font-size:13px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)">
+<div style="padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.07);color:#6F6E69;font-size:12px;display:flex;justify-content:space-between;gap:12px"><span>german@toscana:~</span><span>zsh</span></div>
+<div style="padding:18px 16px 20px;display:grid;grid-template-columns:auto 1fr;gap:10px 18px;align-items:baseline">
+<span style="color:#E8871E">$ location</span><span style="color:#E8E6E1">{{ t.hero.location }}</span>
+<span style="color:#E8871E">$ status</span><span style="display:inline-flex;align-items:center;gap:8px;color:#E8E6E1"><span aria-hidden="true" style="width:7px;height:7px;border-radius:50%;background:#E8871E;box-shadow:0 0 0 3px rgba(232,135,30,.2)"></span>{{ t.hero.availability }}</span>
+<span style="color:#E8871E">$ langs</span><span style="color:#E8E6E1">es · it · en</span>
+<span style="color:#E8871E">$ since</span><span style="color:#E8E6E1">2013 · Web3</span>
+<span style="color:#E8871E">$ ls ./stack</span><span style="color:#9A9891;line-height:1.7">node typescript laravel react next<br>mongodb mysql prisma docker vercel</span>
+</div>
+</aside>
+</header>
+
+<section id="stack" data-screen-label="Stack" style="padding:64px 0;border-top:1px solid rgba(255,255,255,.07);scroll-margin-top:72px">
+<div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:8px">
+<span style="font-family:'Fira Code',monospace;font-size:12px;color:#E8871E">01</span>
+<h2 style="margin:0;font-size:28px;font-weight:800;letter-spacing:-.02em;color:#F4F2EE">{{ t.stack.title }}</h2>
+</div>
+<p style="margin:0 0 32px;color:#9A9891;font-size:15px">{{ t.stack.lead }}</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px">
+<sc-for list="{{ stackGroups }}" as="g" hint-placeholder-count="5">
+<div style="background:#15171C;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px 20px 22px;display:flex;flex-direction:column;gap:12px">
+<div style="font-family:'Fira Code',monospace;font-size:12px;color:#E8871E">// {{ g.label }}</div>
+<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px">
+<sc-for list="{{ g.items }}" as="it" hint-placeholder-count="4">
+<li style="font-size:14px;font-weight:600;color:#E8E6E1">{{ it }}</li>
+</sc-for>
+</ul>
+</div>
+</sc-for>
+</div>
+<p style="margin:16px 0 0;font-family:'Fira Code',monospace;font-size:12px;color:#9A9891"><span style="color:#E8871E">#</span> {{ t.stack.aiNote }}</p>
+</section>
+
+<section id="experiencia" data-screen-label="Experiencia" style="padding:64px 0;border-top:1px solid rgba(255,255,255,.07);scroll-margin-top:72px">
+<div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:32px">
+<span style="font-family:'Fira Code',monospace;font-size:12px;color:#E8871E">02</span>
+<h2 style="margin:0;font-size:28px;font-weight:800;letter-spacing:-.02em;color:#F4F2EE">{{ t.experience.title }}</h2>
+</div>
+<article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:32px 48px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<h3 style="margin:0;font-size:22px;font-weight:800;color:#F4F2EE;letter-spacing:-.01em">{{ t.experience.company }}</h3>
+<div style="font-size:15px;font-weight:600;color:#E8E6E1">{{ t.experience.role }}</div>
+<div style="font-size:14px;color:#9A9891">{{ t.experience.context }}</div>
+<dl style="margin:6px 0 0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-family:'Fira Code',monospace;font-size:13px">
+<dt style="color:#6F6E69">{{ t.experience.periodLabel }}</dt><dd style="margin:0;color:{{ periodColor }}">{{ period }}</dd>
+<dt style="color:#6F6E69">{{ t.experience.stackLabel }}</dt><dd style="margin:0;color:#E8E6E1">{{ experienceStack }}</dd>
+</dl>
+</div>
+<div style="grid-column:span 2;display:flex;flex-direction:column;gap:18px;min-width:0">
+<p style="margin:0;color:#C9C7C1;font-size:16px;text-wrap:pretty">{{ t.experience.description }}</p>
+<ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:2px;counter-reset:c">
+<sc-for list="{{ t.experience.contributions }}" as="c" hint-placeholder-count="3">
+<li style="display:grid;grid-template-columns:auto 1fr;gap:16px;padding:16px 0;border-top:1px solid rgba(255,255,255,.07)">
+<span style="font-family:'Fira Code',monospace;font-size:12px;color:#E8871E;padding-top:4px">0{{ c.n }}</span>
+<div style="display:flex;flex-direction:column;gap:4px">
+<strong style="font-size:16px;font-weight:700;color:#F4F2EE">{{ c.title }}</strong>
+<span style="font-size:15px;color:#C9C7C1;text-wrap:pretty">{{ c.text }}</span>
+</div>
+</li>
+</sc-for>
+</ol>
+</div>
+</article>
+</section>
+
+<section id="proyectos" data-screen-label="Proyectos" style="padding:64px 0;border-top:1px solid rgba(255,255,255,.07);scroll-margin-top:72px">
+<div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:8px">
+<span style="font-family:'Fira Code',monospace;font-size:12px;color:#E8871E">03</span>
+<h2 style="margin:0;font-size:28px;font-weight:800;letter-spacing:-.02em;color:#F4F2EE">{{ t.projects.title }}</h2>
+</div>
+<p style="margin:0 0 32px;color:#9A9891;font-size:15px;max-width:60ch;text-wrap:pretty">{{ t.projects.lead }}</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px">
+<sc-for list="{{ projects }}" as="p" hint-placeholder-count="3">
+<article style="background:#15171C;border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s" style-hover="border-color:rgba(232,135,30,.5)">
+<sc-if value="{{ p.hasShot }}" hint-placeholder-val="{{ false }}">
+<div role="img" aria-label="{{ p.name }}" style="width:100%;aspect-ratio:16/9;background-image:{{ p.shotBg }};background-size:cover;background-position:center;border-bottom:1px solid rgba(255,255,255,.08)"></div>
+</sc-if>
+<sc-if value="{{ p.noShot }}" hint-placeholder-val="{{ true }}">
+<div aria-hidden="true" style="aspect-ratio:16/9;border-bottom:1px solid rgba(255,255,255,.08);background:repeating-linear-gradient(-45deg,#15171C 0 10px,#191B21 10px 20px);display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;font-size:12px;color:#6F6E69">{{ t.projects.labels.screenshot }} · <span style="color:#E8871E;margin-left:6px">{{ t.pending }}</span></div>
+</sc-if>
+<div style="padding:20px 20px 22px;display:flex;flex-direction:column;gap:14px;flex:1">
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap">
+<h3 style="margin:0;font-size:20px;font-weight:800;color:#F4F2EE;letter-spacing:-.01em">{{ p.name }}</h3>
+<sc-if value="{{ p.hasLink }}" hint-placeholder-val="{{ true }}"><a href="{{ p.link }}" target="_blank" rel="noopener" style="font-family:'Fira Code',monospace;font-size:12px;color:#E8871E;text-decoration:none" style-hover="text-decoration:underline">{{ p.domain }} ↗</a></sc-if>
+</div>
+<p style="margin:0;font-size:14px;line-height:1.6;color:#C9C7C1;text-wrap:pretty">{{ p.problem }}</p>
+<dl style="margin:auto 0 0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:13px;padding-top:4px">
+<dt style="font-family:'Fira Code',monospace;font-size:11px;color:#6F6E69;padding-top:2px">{{ t.projects.labels.role }}</dt><dd style="margin:0;color:#E8E6E1">{{ p.role }}</dd>
+<dt style="font-family:'Fira Code',monospace;font-size:11px;color:#6F6E69;padding-top:2px">{{ t.projects.labels.stack }}</dt><dd style="margin:0;font-family:'Fira Code',monospace;font-size:12px;color:#9A9891;line-height:1.7">{{ p.stack }}</dd>
+<dt style="font-family:'Fira Code',monospace;font-size:11px;color:#6F6E69;padding-top:2px">{{ t.projects.labels.metric }}</dt><dd style="margin:0;color:#E8871E;font-weight:700">{{ p.metric }}</dd>
+</dl>
+</div>
+</article>
+</sc-for>
+</div>
+</section>
+
+<section id="sobre-mi" data-screen-label="Sobre mí" style="padding:64px 0;border-top:1px solid rgba(255,255,255,.07);scroll-margin-top:72px">
+<div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:32px">
+<span style="font-family:'Fira Code',monospace;font-size:12px;color:#E8871E">04</span>
+<h2 style="margin:0;font-size:28px;font-weight:800;letter-spacing:-.02em;color:#F4F2EE">{{ t.about.title }}</h2>
+</div>
+<dl style="margin:0;max-width:720px;display:grid;grid-template-columns:auto 1fr;gap:14px 24px">
+<sc-for list="{{ t.about.facts }}" as="f" hint-placeholder-count="6">
+<dt style="font-family:'Fira Code',monospace;font-size:13px;color:#E8871E;padding-top:2px">{{ f.k }}:</dt>
+<dd style="margin:0;font-size:16px;color:#E8E6E1;text-wrap:pretty">{{ f.v }}</dd>
+</sc-for>
+</dl>
+</section>
+
+<section id="contacto" data-screen-label="Contacto" style="padding:64px 0 80px;border-top:1px solid rgba(255,255,255,.07);scroll-margin-top:72px">
+<div style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:8px">
+<span style="font-family:'Fira Code',monospace;font-size:12px;color:#E8871E">05</span>
+<h2 style="margin:0;font-size:28px;font-weight:800;letter-spacing:-.02em;color:#F4F2EE">{{ t.contact.title }}</h2>
+</div>
+<p style="margin:0 0 28px;color:#9A9891;font-size:15px">{{ t.contact.lead }}</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px">
+<sc-for list="{{ contacts }}" as="k" hint-placeholder-count="3">
+<a href="{{ k.href }}" target="{{ k.target }}" rel="noopener" style="display:flex;flex-direction:column;gap:6px;padding:18px 20px;background:#15171C;border:1px solid rgba(255,255,255,.08);border-radius:12px;text-decoration:none;transition:border-color .15s;min-width:0" style-hover="border-color:#E8871E">
+<span style="font-family:'Fira Code',monospace;font-size:11px;color:#6F6E69">$ {{ k.label }}</span>
+<span style="font-family:'Fira Code',monospace;font-size:14px;color:{{ k.color }};overflow-wrap:anywhere">{{ k.value }}</span>
+</a>
+</sc-for>
+</div>
+<p style="margin:36px 0 0;font-family:'Fira Code',monospace;font-size:14px;color:#E8E6E1"><span style="color:#E8871E">$</span> echo "{{ t.contact.closing }}"</p>
+</section>
+
+<footer style="padding:24px 0 40px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:#6F6E69">
+<span>{{ t.footer }}</span>
+<span style="font-family:'Fira Code',monospace">© {{ year }} Germán Lugo</span>
+</footer>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;auto&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;es&quot;,&quot;en&quot;,&quot;it&quot;],&quot;tsType&quot;:&quot;'auto'|'es'|'en'|'it'&quot;,&quot;section&quot;:&quot;Idioma&quot;},&quot;blinkCursor&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Detalles&quot;}}">
+class Component extends DCLogic {
+state = { content: null, lang: null };
+componentDidMount() {
+fetch('./content.json').then(r => r.json()).then(content => this.setState({ content }));
+}
+detectLang() {
+const forced = this.props.lang && this.props.lang !== 'auto' ? this.props.lang : null;
+if (forced) return forced;
+if (this.state.lang) return this.state.lang;
+try { const s = localStorage.getItem('gl-portfolio-lang'); if (s) return s; } catch (e) {}
+const n = (navigator.language || 'en').slice(0, 2).toLowerCase();
+return ['es', 'it', 'en'].includes(n) ? n : 'en';
+}
+renderVals() {
+const c = this.state.content;
+const lang = this.detectLang();
+const t = c ? c[lang] : undefined;
+const ph = c ? c.placeholders : {};
+const pending = t ? t.pending : '';
+const val = k => (ph[k] && ph[k].trim()) ? ph[k] : '';
+const showBlink = this.props.blinkCursor ?? true;
+const cursor = showBlink ? React.createElement('span', { 'aria-hidden': true, style: { display: 'inline-block', width: 8, height: 15, background: '#E8871E', marginLeft: 2, verticalAlign: -2, animation: 'gl-blink 1.1s steps(1) infinite' } }) : null;
+const langs = ['es', 'en', 'it'].map(code => ({
+code, active: code === lang,
+bg: code === lang ? '#E8871E' : 'transparent', color: code === lang ? '#0E0F12' : '#9A9891',
+select: () => { try { localStorage.setItem('gl-portfolio-lang', code); } catch (e) {} this.setState({ lang: code }); }
+}));
+if (!c || !t) return { lang, langs, cursor, year: new Date().getFullYear() };
+const stackGroups = c.stack.map(g => ({ label: t.stack.groups[g.id], items: g.items }));
+const contributions = t.experience.contributions.map((x, i) => ({ ...x, n: i + 1 }));
+const start = val('FOODCHAIN_INICIO'), end = val('FOODCHAIN_FIN');
+const period = (start || end) ? `${start || pending} – ${end || pending}` : pending;
+const projects = c.projectsMeta.map(m => {
+const tx = t.projects.items[m.id]; const shot = val(m.screenshotKey); const link = m.linkKey ? c.links[m.linkKey] : '';
+return { ...m, ...tx, shot, shotBg: shot ? `url("${shot}")` : 'none', hasShot: !!shot, noShot: !shot, link, hasLink: !!link, stack: m.stack.join(' · ') };
+});
+const email = val('EMAIL'), gh = val('GITHUB_URL'), cv = val('CV_URL');
+const contacts = [
+{ label: t.contact.email, value: email || pending, href: email ? `mailto:${email}` : '#contacto', target: '_self', color: email ? '#E8E6E1' : '#E8871E' },
+{ label: t.contact.linkedin, value: c.links.linkedin.replace(/^https?:\/\//, ''), href: c.links.linkedin, target: '_blank', color: '#E8E6E1' },
+{ label: t.contact.github, value: gh ? gh.replace(/^https?:\/\//, '') : pending, href: gh || '#contacto', target: gh ? '_blank' : '_self', color: gh ? '#E8E6E1' : '#E8871E' }
+];
+return {
+t: { ...t, experience: { ...t.experience, contributions } }, lang, langs, cursor, stackGroups, projects, contacts,
+period, periodColor: (start || end) ? '#E8E6E1' : '#E8871E',
+experienceStack: c.experienceStack.join(' · '),
+cvHref: cv || '#', cvDownload: cv ? 'German-Lugo-CV.pdf' : undefined, cvPending: !cv,
+year: new Date().getFullYear()
+};
+}
+}
+</script>
+</body>
+</html>

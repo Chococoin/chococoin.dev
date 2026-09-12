@@ -1,0 +1,114 @@
+/* CV · Germán Lugo — A4 imprimible. Valores exactos de design/CV German Lugo.dc.html
+   (texto #1C1C1F, acento impreso #C86F0F, columna lateral #0E0F12). */
+
+.cv-screen {
+  min-height: 100vh;
+  background: #E5E4E0;
+  padding: 24px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  color: #1C1C1F;
+}
+.cv-toolbar {
+  width: min(210mm, 100%);
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  font-family: var(--sans);
+}
+.cv-back { font-family: var(--mono); font-size: 13px; color: #3A3A3F; text-decoration: none; }
+.cv-back:hover { color: #C86F0F; }
+.cv-tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cv-btn {
+  display: inline-flex; align-items: center; gap: 6px; font: 600 13px/1 var(--sans);
+  padding: 9px 14px; border-radius: 8px; border: 1px solid rgba(0, 0, 0, .18); background: #fff; color: #1C1C1F;
+  cursor: pointer; text-decoration: none;
+}
+.cv-btn:hover { border-color: #C86F0F; color: #1C1C1F; }
+.cv-btn-primary { background: #E8871E; color: #0E0F12; border-color: #E8871E; font-weight: 700; }
+.cv-btn-primary:hover { background: #F5A34A; color: #0E0F12; }
+.cv-toolbar .lang-group { margin-left: 4px; background: #15171C; border-color: transparent; }
+
+/* ---- La hoja ---- */
+.cv-page {
+  width: 210mm; min-height: 297mm; max-width: 100%;
+  background: #fff; color: #1C1C1F;
+  font-family: var(--sans); font-size: 8.3pt; line-height: 1.3;
+  display: grid; grid-template-columns: 1fr 60mm;
+  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, .45);
+  overflow: hidden;
+  print-color-adjust: exact; -webkit-print-color-adjust: exact;
+}
+.cv-main { padding: 6mm 6mm 5mm 8mm; display: flex; flex-direction: column; gap: 2.4mm; min-width: 0; }
+.cv-header { display: flex; flex-direction: column; gap: 2mm; }
+.cv-prompt { font-family: var(--mono); font-size: 8.5pt; color: #8A8983; }
+.cv-accent { color: #C86F0F; }
+.cv-name { margin: 0; font-size: 20pt; font-weight: 800; letter-spacing: -.03em; line-height: 1; color: #0E0F12; }
+.cv-tagline { font-family: var(--mono); font-size: 8.2pt; color: #C86F0F; margin-top: .5mm; }
+
+.cv-section { display: flex; flex-direction: column; gap: 2mm; }
+.cv-h2 {
+  margin: 0; display: flex; align-items: baseline; gap: 3mm;
+  font-size: 8.5pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #0E0F12;
+  padding-bottom: 1.5mm; border-bottom: 1.5px solid #0E0F12;
+}
+.cv-h2 .cv-num { font-family: var(--mono); font-weight: 400; color: #C86F0F; letter-spacing: 0; }
+
+.cv-row { display: flex; justify-content: space-between; gap: 6mm; align-items: baseline; flex-wrap: wrap; }
+.cv-company { font-size: 11pt; font-weight: 800; color: #0E0F12; }
+.cv-role { color: #3A3A3F; }
+.cv-period { font-family: var(--mono); font-size: 8.5pt; color: #6E6E73; }
+.cv-period.is-pending { color: #C86F0F; }
+.cv-ctx { font-size: 8.8pt; color: #6E6E73; margin-top: -1.5mm; }
+.cv-p { margin: 0; color: #3A3A3F; text-wrap: pretty; }
+.cv-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 1mm; }
+.cv-list li { display: grid; grid-template-columns: auto 1fr; gap: 3mm; text-wrap: pretty; }
+.cv-list .cv-n { font-family: var(--mono); font-size: 8.5pt; color: #C86F0F; padding-top: .5mm; }
+.cv-list strong { font-weight: 700; color: #0E0F12; }
+.cv-list .cv-text { color: #3A3A3F; }
+.cv-stackline { font-family: var(--mono); font-size: 8.5pt; color: #6E6E73; }
+
+.cv-projects { display: flex; flex-direction: column; gap: 1.6mm; }
+.cv-project { display: flex; flex-direction: column; gap: .8mm; break-inside: avoid; }
+.cv-project-head { display: flex; justify-content: space-between; gap: 4mm; align-items: baseline; flex-wrap: wrap; }
+.cv-project-name { display: flex; align-items: baseline; gap: 2.5mm; }
+.cv-project-name strong { font-size: 10.5pt; font-weight: 800; color: #0E0F12; }
+.cv-kind { font-family: var(--mono); font-size: 7pt; color: #8A8983; }
+.cv-kind.is-own { color: #C86F0F; }
+.cv-domain { font-family: var(--mono); font-size: 8.5pt; color: #C86F0F; }
+.cv-problem { margin: 0; color: #3A3A3F; text-wrap: pretty; font-size: 8.1pt; }
+.cv-project-foot { display: flex; justify-content: space-between; gap: 4mm; flex-wrap: wrap; align-items: baseline; }
+.cv-project-role { font-size: 8.4pt; color: #6E6E73; }
+.cv-project-role .cv-stack { font-family: var(--mono); font-size: 7.5pt; }
+.cv-metric { font-size: 8.6pt; font-weight: 700; color: #C86F0F; }
+
+/* ---- Columna lateral ---- */
+.cv-aside {
+  background: #0E0F12; color: #E8E6E1; padding: 6mm 6mm 5mm 6mm;
+  display: flex; flex-direction: column; gap: 2.6mm; font-size: 8pt; min-width: 0;
+}
+.cv-aside-section { display: flex; flex-direction: column; gap: 2.5mm; }
+.cv-aside-section.cv-stack-section { gap: 2mm; }
+.cv-aside-section.cv-about-section { margin-top: auto; }
+.cv-aside h2 { margin: 0; font-family: var(--mono); font-size: 8.5pt; font-weight: 400; color: #E8871E; }
+.cv-contacts { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 1.4mm; font-family: var(--mono); font-size: 8.5pt; }
+.cv-contacts li { display: flex; flex-direction: column; gap: .5mm; overflow-wrap: anywhere; }
+.cv-contacts .cv-k { color: #8A8983; }
+.cv-contacts .cv-v { color: #E8E6E1; }
+.cv-contacts .cv-v.is-pending { color: #E8871E; }
+.cv-group { display: flex; flex-direction: column; gap: 1mm; }
+.cv-group-label { font-size: 8pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #8A8983; }
+.cv-group-items { font-size: 8.8pt; font-weight: 600; color: #E8E6E1; line-height: 1.45; }
+.cv-facts { margin: 0; display: flex; flex-direction: column; gap: 1.4mm; }
+.cv-fact { display: flex; flex-direction: column; gap: .3mm; }
+.cv-fact dt { font-family: var(--mono); font-size: 7.5pt; color: #E8871E; }
+.cv-fact dd { margin: 0; font-size: 8.4pt; color: #E8E6E1; text-wrap: pretty; }
+
+/* ---- Impresión / PDF ---- */
+@page { size: A4; margin: 0; }
+@media print {
+  html, body { background: #fff; }
+  .cv-screen { min-height: 0; padding: 0; background: #fff; display: block; }
+  .cv-toolbar { display: none; }
+  .cv-page { width: 210mm; height: 297mm; min-height: 0; box-shadow: none; margin: 0; }
+}

@@ -118,6 +118,18 @@ html, body {
   box-shadow: 3px 3px 0 var(--purple);
 }
 #ui nav button:hover { background: var(--pink); }
+#ui nav .nav-home {
+  pointer-events: auto;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #000;
+  background: var(--yellow);
+  border: 3px solid #fff;
+  padding: 9px 11px;
+  text-decoration: none;
+  box-shadow: 3px 3px 0 var(--purple);
+}
+#ui nav .nav-home:hover { background: var(--lime); }
 #ui #zoomout { box-shadow: 3px 3px 0 var(--cyan); }
 
 #hint {
