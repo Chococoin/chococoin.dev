@@ -52,4 +52,6 @@ test('placeholders rellenos tienen la forma correcta', () => {
   if (p.EMAIL) assert.match(p.EMAIL, /^[^@\s]+@[^@\s]+\.[a-z]+$/i);
   for (const k of ['GITHUB_URL', 'CV_URL']) if (p[k]) assert.match(p[k], /^(https?:\/\/|\.?\/)/, k);
   assert.equal(content.links.arcade, '/arcade/');
+  assert.match(content.links.site, /^https:\/\//, 'links.site');
+  for (const l of LANGS) assert.ok(content[l].contact.web, `${l}.contact.web`);
 });

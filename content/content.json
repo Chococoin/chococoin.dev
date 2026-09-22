@@ -14,7 +14,8 @@
     "linkedin": "https://linkedin.com/in/germán-lugo-73255b201",
     "pagineAzzurre": "https://pagineazzurre.net",
     "chocosfera": "https://chocosfera.com",
-    "arcade": "/arcade/"
+    "arcade": "/arcade/",
+    "site": "https://chococoin-dev.vercel.app"
   },
   "stack": [
     {
@@ -244,6 +245,7 @@
       "title": "Contacto",
       "lead": "Si llegaste hasta aquí ya leíste más que la mayoría. Escríbeme.",
       "email": "Email",
+      "web": "Web",
       "linkedin": "LinkedIn",
       "github": "GitHub",
       "closing": "Respondo antes de que termine tu npm install."
@@ -385,6 +387,7 @@
       "title": "Contact",
       "lead": "If you made it this far you've read more than most. Say hi.",
       "email": "Email",
+      "web": "Web",
       "linkedin": "LinkedIn",
       "github": "GitHub",
       "closing": "I reply before your npm install finishes."
@@ -526,6 +529,7 @@
       "title": "Contatti",
       "lead": "Se sei arrivato fin qui hai letto più della maggior parte. Scrivimi.",
       "email": "Email",
+      "web": "Web",
       "linkedin": "LinkedIn",
       "github": "GitHub",
       "closing": "Rispondo prima che finisca il tuo npm install."

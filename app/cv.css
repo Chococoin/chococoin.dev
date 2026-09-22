@@ -94,7 +94,8 @@
 .cv-contacts { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 1.4mm; font-family: var(--mono); font-size: 8.5pt; }
 .cv-contacts li { display: flex; flex-direction: column; gap: .5mm; overflow-wrap: anywhere; }
 .cv-contacts .cv-k { color: #8A8983; }
-.cv-contacts .cv-v { color: #E8E6E1; }
+.cv-contacts .cv-v { color: #E8E6E1; text-decoration: none; }
+.cv-contacts a.cv-v:hover { color: #F5A34A; }
 .cv-contacts .cv-v.is-pending { color: #E8871E; }
 .cv-group { display: flex; flex-direction: column; gap: 1mm; }
 .cv-group-label { font-size: 8pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #8A8983; }

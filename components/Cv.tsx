@@ -86,7 +86,11 @@ export default function Cv({ lang }: { lang: Lang }) {
               {v.contacts.map((k) => (
                 <li key={k.label}>
                   <span className="cv-k">{k.label}</span>
-                  <span className={`cv-v${k.pending ? ' is-pending' : ''}`}>{k.value}</span>
+                  {k.pending ? (
+                    <span className="cv-v is-pending">{k.value}</span>
+                  ) : (
+                    <a className="cv-v" href={k.href}>{k.value}</a>
+                  )}
                 </li>
               ))}
               <li>

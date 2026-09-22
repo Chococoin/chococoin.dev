@@ -108,6 +108,7 @@ export function getView(lang: Lang): View {
   const stripProto = (u: string) => u.replace(/^https?:\/\//, '');
   const contacts: ContactView[] = [
     { label: t.contact.email, value: email || pending, href: email ? `mailto:${email}` : '#contacto', external: false, pending: !email },
+    { label: t.contact.web, value: stripProto(content.links.site), href: content.links.site, external: true, pending: false },
     { label: t.contact.linkedin, value: stripProto(content.links.linkedin), href: content.links.linkedin, external: true, pending: false },
     { label: t.contact.github, value: github ? stripProto(github) : pending, href: github || '#contacto', external: !!github, pending: !github },
   ];
