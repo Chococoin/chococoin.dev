@@ -1,38 +1,76 @@
 {
   "_readme": "Variante del CV para la oferta Senior Node.js Engineer de Commit Offshore (djinni 850194). Se fusiona sobre content.json: los objetos se combinan, las listas se sustituyen.",
   "stack": [
-    { "id": "backend",  "items": ["Node.js", "TypeScript", "REST APIs", "Webhooks & integrations", "PHP / Laravel"] },
-    { "id": "data",     "items": ["MongoDB", "Redis", "MySQL", "Prisma"] },
-    { "id": "infra",    "items": ["Docker", "CI/CD", "staging / production", "Vercel"] },
-    { "id": "frontend", "items": ["React", "Next.js"] },
-    { "id": "extras",   "items": ["WhatsApp Business API", "MailerSend", "Telegram bots", "Web3.js", "Solidity", "AI tooling"] }
-  ],
-  "projectsMeta": [
-    { "id": "flowpack",   "name": "FlowPack",       "domain": "",                  "linkKey": "",              "screenshotKey": "SCREENSHOT_FLOWPACK",       "stack": ["Node.js", "TypeScript", "MongoDB", "REST APIs", "webhooks", "CI/CD"], "kind": "client" },
-    { "id": "pagine",     "name": "Pagine Azzurre", "domain": "pagineazzurre.net", "linkKey": "pagineAzzurre", "screenshotKey": "SCREENSHOT_PAGINE_AZZURRE", "stack": ["Node.js", "React", "MongoDB", "Vercel"], "kind": "client" },
-    { "id": "chocosfera", "name": "Chocósfera",     "domain": "chocosfera.com",    "linkKey": "chocosfera",    "screenshotKey": "SCREENSHOT_CHOCOSFERA",     "stack": ["Next.js", "Prisma", "Telegram Bot API", "MailerSend", "Solidity", "Web3.js"], "kind": "own" }
+    {
+      "id": "backend",
+      "items": [
+        "Node.js",
+        "TypeScript",
+        "REST APIs",
+        "Webhooks & integrations",
+        "PHP / Laravel"
+      ]
+    },
+    {
+      "id": "data",
+      "items": [
+        "MongoDB",
+        "Redis",
+        "MySQL",
+        "Prisma"
+      ]
+    },
+    {
+      "id": "infra",
+      "items": [
+        "Docker",
+        "CI/CD",
+        "staging / production",
+        "Vercel"
+      ]
+    },
+    {
+      "id": "frontend",
+      "items": [
+        "React",
+        "Next.js"
+      ]
+    },
+    {
+      "id": "extras",
+      "items": [
+        "WhatsApp Business API",
+        "MailerSend",
+        "Telegram bots",
+        "Web3.js",
+        "Solidity",
+        "AI tooling"
+      ]
+    }
   ],
   "en": {
     "hero": {
       "tagline": "Senior Node.js engineer · TypeScript · MongoDB · Redis · REST APIs · CI/CD"
     },
     "experience": {
-      "role": "Full stack developer (Node.js backend)",
-      "description": "Agri-food traceability startup with its own blockchain (Quadrans). Backend services and the web app that read from the chain. Three concrete contributions:"
-    },
-    "projects": {
-      "title": "Selected work",
-      "items": {
+      "jobs": {
         "flowpack": {
-          "problem": "Multi-tenant logistics SaaS (deliveries and pickups) for carriers and agencies. Node.js/TypeScript backend with REST APIs, AI-assisted incident classification, multichannel notifications (WhatsApp, email, webhooks), bulk CSV import, carrier integrations and per-tenant isolation with a security audit.",
-          "role": "Sole architect and developer: system design, backend, frontend, CI/CD with staging and production environments.",
-          "metric": "Production pilot with real logistics-sector clients"
+          "role": "Full stack developer & architect (Node.js backend)",
+          "description": "Multi-tenant logistics SaaS (deliveries and pickups) for carriers and agencies. Sole architect and developer: system design, Node.js/TypeScript REST API, frontend and CI/CD with staging and production environments."
         },
         "pagine": {
-          "problem": "Exchange marketplace for the Italian community with the VAL complementary currency: offer, find and donate products, services and skills. Node.js API and React frontend on MongoDB.",
-          "role": "Architect and developer of the whole platform for the client.",
-          "metric": "~600 active users in production"
+          "role": "Full stack developer & architect",
+          "description": "Exchange marketplace for the Italian community with the VAL complementary currency. Node.js API and React frontend on MongoDB; full architecture and development for the client."
         },
+        "foodchain": {
+          "role": "Full stack developer (Node.js backend)",
+          "description": "Agri-food traceability startup with its own blockchain (Quadrans). Backend services and the web app that read from the chain. Three concrete contributions:"
+        }
+      }
+    },
+    "projects": {
+      "title": "Own project",
+      "items": {
         "chocosfera": {
           "problem": "Ethical cocoa traceability on blockchain: a Telegram bot lets growers photograph the tree, capture geolocation and issue a tokenized digital certificate; the same channel connects producer and buyer.",
           "role": "Founder and developer.",
@@ -42,13 +80,78 @@
     },
     "about": {
       "facts": [
-        { "k": "since",     "v": "Building for the web since 2013, self-taught; Web3 from the start." },
-        { "k": "school",    "v": "École 42 Firenze." },
-        { "k": "roles",     "v": "Solopreneur: architect and developer at once. I know what every technical decision costs in euros and in hours of sleep." },
-        { "k": "languages", "v": "Spanish, Italian, English (B2+)." },
-        { "k": "method",    "v": "Async and documented by habit, not by mandate. Comfortable in fully remote teams." },
-        { "k": "based in",  "v": "Tuscany, Italy (EU). Remote." }
+        {
+          "k": "since",
+          "v": "Building for the web since 2013, self-taught; Web3 from the start."
+        },
+        {
+          "k": "school",
+          "v": "École 42 Firenze."
+        },
+        {
+          "k": "roles",
+          "v": "Solopreneur: architect and developer at once. I know what every technical decision costs in euros and in hours of sleep."
+        },
+        {
+          "k": "languages",
+          "v": "Spanish, Italian, English (B2+)."
+        },
+        {
+          "k": "method",
+          "v": "Async and documented by habit, not by mandate. Comfortable in fully remote teams."
+        },
+        {
+          "k": "based in",
+          "v": "Tuscany, Italy (EU). Remote."
+        }
       ]
     }
-  }
+  },
+  "experienceMeta": [
+    {
+      "id": "flowpack",
+      "start": "2025",
+      "end": "",
+      "kind": "client",
+      "domain": "",
+      "linkKey": "",
+      "stack": [
+        "Node.js",
+        "TypeScript",
+        "MongoDB",
+        "REST APIs",
+        "webhooks",
+        "CI/CD"
+      ]
+    },
+    {
+      "id": "pagine",
+      "start": "2022",
+      "end": "2024",
+      "kind": "client",
+      "domain": "pagineazzurre.net",
+      "linkKey": "pagineAzzurre",
+      "stack": [
+        "Node.js",
+        "React",
+        "MongoDB",
+        "Vercel"
+      ]
+    },
+    {
+      "id": "foodchain",
+      "start": "2019",
+      "end": "2021",
+      "kind": "employee",
+      "domain": "",
+      "linkKey": "",
+      "stack": [
+        "Node.js",
+        "JavaScript",
+        "Web3.js",
+        "Solidity",
+        "React"
+      ]
+    }
+  ]
 }

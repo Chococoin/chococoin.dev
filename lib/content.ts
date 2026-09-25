@@ -96,14 +96,27 @@ export interface ContactView {
   pending: boolean;
 }
 
+export interface JobView {
+  id: string;
+  company: string;
+  role: string;
+  context: string;
+  period: string;
+  description: string;
+  highlights: { title: string; text: string }[];
+  metric: string;
+  stack: string;
+  domain: string;
+  link: string;
+  kind: 'client' | 'employee';
+}
+
 export interface View {
   lang: Lang;
   variant: string | null;
   t: Texts;
   stackGroups: { label: string; items: string[] }[];
-  experienceStack: string;
-  period: string;
-  periodPending: boolean;
+  jobs: JobView[];
   projects: ProjectView[];
   contacts: ContactView[];
   cvUrl: string;
@@ -116,10 +129,25 @@ export function getView(lang: Lang, variant: string | null = null): View {
   const t = content[lang];
   const pending = t.pending;
 
-  const start = placeholder(content, 'FOODCHAIN_INICIO');
-  const end = placeholder(content, 'FOODCHAIN_FIN');
-  const periodPending = !start && !end;
-  const period = periodPending ? pending : `${start || pending} – ${end || pending}`;
+  // Experiencia: datos por idioma (jobs) + periodo, stack y enlace independientes del idioma.
+  const jobs: JobView[] = content.experienceMeta.map((m) => {
+    const tx = t.experience.jobs[m.id as keyof typeof t.experience.jobs];
+    const link = m.linkKey ? content.links[m.linkKey as keyof typeof content.links] : '';
+    return {
+      id: m.id,
+      company: tx.company,
+      role: tx.role,
+      context: tx.context,
+      period: `${m.start} – ${m.end || t.experience.present}`,
+      description: tx.description,
+      highlights: tx.highlights,
+      metric: tx.metric,
+      stack: m.stack.join(' · '),
+      domain: m.domain,
+      link,
+      kind: m.kind as 'client' | 'employee',
+    };
+  });
 
   const projects: ProjectView[] = content.projectsMeta.map((m) => {
     const tx = t.projects.items[m.id as keyof typeof t.projects.items];
@@ -155,9 +183,7 @@ export function getView(lang: Lang, variant: string | null = null): View {
     variant,
     t,
     stackGroups: content.stack.map((g) => ({ label: t.stack.groups[g.id as keyof typeof t.stack.groups], items: g.items })),
-    experienceStack: content.experienceStack.join(' · '),
-    period,
-    periodPending,
+    jobs,
     projects,
     contacts,
     // CV_URL admite {lang}: "/cv/german-lugo-cv-{lang}.pdf" -> un PDF por idioma.

@@ -37,6 +37,18 @@ test('proyectos: cada meta tiene textos en los tres idiomas', () => {
   }
 });
 
+test('experiencia: cada entrada tiene textos en los tres idiomas y periodo', () => {
+  for (const m of content.experienceMeta) {
+    assert.match(m.start, /^\d{4}$/, `start de ${m.id}`);
+    assert.ok(m.end === '' || /^\d{4}$/.test(m.end), `end de ${m.id}`);
+    for (const l of LANGS) {
+      const j = content[l].experience.jobs[m.id];
+      assert.ok(j && j.company && j.role && j.description, `${l}.experience.jobs.${m.id}`);
+      assert.ok(content[l].experience.present, `${l}.experience.present`);
+    }
+  }
+});
+
 test('stack: cada grupo tiene etiqueta en los tres idiomas', () => {
   for (const g of content.stack)
     for (const l of LANGS) assert.ok(content[l].stack.groups[g.id], `${l}.stack.groups.${g.id}`);

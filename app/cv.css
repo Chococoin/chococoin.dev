@@ -68,6 +68,9 @@
 .cv-list .cv-text { color: #3A3A3F; }
 .cv-stackline { font-family: var(--mono); font-size: 8.5pt; color: #6E6E73; }
 
+.cv-jobs { display: flex; flex-direction: column; gap: 2.2mm; }
+.cv-job { display: flex; flex-direction: column; gap: 1.2mm; break-inside: avoid; }
+.cv-job + .cv-job { padding-top: 1.6mm; border-top: 1px solid #E4E2DD; }
 .cv-projects { display: flex; flex-direction: column; gap: 1.6mm; }
 .cv-project { display: flex; flex-direction: column; gap: .8mm; break-inside: avoid; }
 .cv-project-head { display: flex; justify-content: space-between; gap: 4mm; align-items: baseline; flex-wrap: wrap; }

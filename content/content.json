@@ -1,8 +1,6 @@
 {
   "_readme": "Único archivo de contenido. Todo lo que está vacío en `placeholders` se muestra en la web como [PENDIENTE]. Los textos por idioma están en es / en / it y deben tener la misma estructura (lo comprueba `npm test`).",
   "placeholders": {
-    "FOODCHAIN_INICIO": "2019",
-    "FOODCHAIN_FIN": "2021",
     "EMAIL": "g.lugo.dev@gmail.com",
     "GITHUB_URL": "https://github.com/Chococoin",
     "CV_URL": "/cv/german-lugo-cv-{lang}.pdf",
@@ -63,41 +61,7 @@
       ]
     }
   ],
-  "experienceStack": [
-    "Node.js",
-    "JavaScript",
-    "Web3.js",
-    "Solidity",
-    "React"
-  ],
   "projectsMeta": [
-    {
-      "id": "pagine",
-      "name": "Pagine Azzurre",
-      "domain": "pagineazzurre.net",
-      "linkKey": "pagineAzzurre",
-      "screenshotKey": "SCREENSHOT_PAGINE_AZZURRE",
-      "stack": [
-        "React",
-        "Node.js",
-        "MongoDB",
-        "Vercel"
-      ],
-      "kind": "client"
-    },
-    {
-      "id": "flowpack",
-      "name": "FlowPack",
-      "domain": "",
-      "linkKey": "",
-      "screenshotKey": "SCREENSHOT_FLOWPACK",
-      "stack": [
-        "Node.js",
-        "TypeScript",
-        "MongoDB"
-      ],
-      "kind": "client"
-    },
     {
       "id": "chocosfera",
       "name": "Chocósfera",
@@ -156,30 +120,65 @@
     },
     "experience": {
       "title": "Experiencia",
-      "company": "Foodchain SpA",
-      "role": "Full stack developer",
-      "context": "I3P, incubadora del Politecnico di Torino",
-      "description": "Startup de trazabilidad agroalimentaria con blockchain propia (Quadrans). Tres contribuciones concretas:",
       "periodLabel": "Periodo",
       "stackLabel": "Stack",
-      "contributions": [
-        {
-          "title": "Proxy de monitoreo de mineros",
-          "text": "Servicio que registraba el tiempo de conexión de cada nodo minero y calculaba la recompensa proporcional a ese uptime."
+      "present": "actualidad",
+      "jobs": {
+        "flowpack": {
+          "company": "FlowPack",
+          "role": "Full stack developer y arquitecto",
+          "context": "Cliente privado · SaaS de logística",
+          "description": "SaaS multi-tenant de logística (entregas y recogidas) para transportistas y agencias. Único desarrollador y arquitecto: producto, backend, frontend y CI/CD con staging y producción.",
+          "highlights": [
+            {
+              "title": "Clasificación de incidencias asistida por IA",
+              "text": "Triaje automático de las incidencias de entrega con IA."
+            },
+            {
+              "title": "Notificaciones multicanal",
+              "text": "WhatsApp Business API, email (MailerSend) y webhooks hacia los sistemas del cliente."
+            },
+            {
+              "title": "Operativa a escala",
+              "text": "Importación masiva por CSV, integraciones con carriers y aislamiento por tenant con auditoría de seguridad."
+            }
+          ],
+          "metric": "Piloto en producción con clientes reales del sector logístico"
         },
-        {
-          "title": "Automatización de pagos en cripto",
-          "text": "Pipeline que enviaba automáticamente tokens a cada usuario recién registrado según la política de onboarding; de proceso manual a cero intervención."
+        "pagine": {
+          "company": "Pagine Azzurre",
+          "role": "Full stack developer y arquitecto",
+          "context": "Cliente privado · marketplace",
+          "description": "Marketplace de intercambio de la comunidad italiana con moneda complementaria VAL: ofrecer, buscar y donar productos, servicios y competencias gastando menos euros. Arquitectura y desarrollo completos.",
+          "highlights": [],
+          "metric": "~600 usuarios activos en producción"
         },
-        {
-          "title": "Visualizador de trazabilidad",
-          "text": "Aplicación web que leía los datos on-chain de cada lote y los mostraba como recorrido visual del producto, del productor al consumidor. Frontend completo, lectura de la cadena y revisión de los smart contracts involucrados."
+        "foodchain": {
+          "company": "Foodchain SpA",
+          "role": "Full stack developer",
+          "context": "I3P, incubadora del Politecnico di Torino",
+          "description": "Startup de trazabilidad agroalimentaria con blockchain propia (Quadrans). Tres contribuciones concretas:",
+          "highlights": [
+            {
+              "title": "Proxy de monitoreo de mineros",
+              "text": "Servicio que registraba el tiempo de conexión de cada nodo minero y calculaba la recompensa proporcional a ese uptime."
+            },
+            {
+              "title": "Automatización de pagos en cripto",
+              "text": "Pipeline que enviaba automáticamente tokens a cada usuario recién registrado según la política de onboarding; de proceso manual a cero intervención."
+            },
+            {
+              "title": "Visualizador de trazabilidad",
+              "text": "Aplicación web que leía los datos on-chain de cada lote y los mostraba como recorrido visual del producto, del productor al consumidor. Frontend completo, lectura de la cadena y revisión de los smart contracts involucrados."
+            }
+          ],
+          "metric": ""
         }
-      ]
+      }
     },
     "projects": {
       "title": "Proyectos",
-      "lead": "Dos plataformas construidas para clientes y una propia. Las tres en producción, con usuarios que se quejan cuando fallan.",
+      "lead": "Lo que construyo por cuenta propia, en producción y con usuarios reales.",
       "labels": {
         "problem": "Problema",
         "role": "Rol",
@@ -191,16 +190,6 @@
         "client": "Para cliente"
       },
       "items": {
-        "pagine": {
-          "problem": "Marketplace de intercambio de la comunidad italiana con moneda complementaria VAL: ofrecer, buscar y donar productos, servicios y competencias gastando menos euros.",
-          "role": "Arquitecto y desarrollador del proyecto completo para el cliente.",
-          "metric": "~600 usuarios activos en producción"
-        },
-        "flowpack": {
-          "problem": "SaaS multi-tenant de logística (entregas y recogidas) para transportistas y agencias. Clasificación de incidencias asistida por IA, notificaciones multicanal (WhatsApp, email, webhooks), importación masiva por CSV, integraciones con carriers, aislamiento por tenant con auditoría de seguridad.",
-          "role": "Único desarrollador y arquitecto; producto, backend, frontend, CI/CD con staging y producción.",
-          "metric": "Piloto en producción con clientes reales del sector logístico"
-        },
         "chocosfera": {
           "problem": "Trazabilidad ética de cacao con blockchain: un bot de Telegram permite al cacaocultor fotografiar el árbol, capturar la geolocalización y emitir un certificado digital tokenizado; el mismo canal conecta productor y comprador.",
           "role": "Fundador y desarrollador.",
@@ -298,30 +287,65 @@
     },
     "experience": {
       "title": "Experience",
-      "company": "Foodchain SpA",
-      "role": "Full stack developer",
-      "context": "I3P, Politecnico di Torino incubator",
-      "description": "Agri-food traceability startup with its own blockchain (Quadrans). Three concrete contributions:",
       "periodLabel": "Period",
       "stackLabel": "Stack",
-      "contributions": [
-        {
-          "title": "Miner monitoring proxy",
-          "text": "Service that logged each mining node's connection time and computed a reward proportional to that uptime."
+      "present": "present",
+      "jobs": {
+        "flowpack": {
+          "company": "FlowPack",
+          "role": "Full stack developer & architect",
+          "context": "Private client · logistics SaaS",
+          "description": "Multi-tenant logistics SaaS (deliveries and pickups) for carriers and agencies. Sole developer and architect: product, backend, frontend and CI/CD with staging and production.",
+          "highlights": [
+            {
+              "title": "AI-assisted incident classification",
+              "text": "Automatic triage of delivery incidents with AI."
+            },
+            {
+              "title": "Multichannel notifications",
+              "text": "WhatsApp Business API, email (MailerSend) and webhooks to the client's systems."
+            },
+            {
+              "title": "Operations at scale",
+              "text": "Bulk CSV import, carrier integrations and per-tenant isolation with a security audit."
+            }
+          ],
+          "metric": "Production pilot with real logistics-sector clients"
         },
-        {
-          "title": "Automated crypto payouts",
-          "text": "Pipeline that automatically sent tokens to every newly registered user according to the onboarding policy; from a manual process to zero intervention."
+        "pagine": {
+          "company": "Pagine Azzurre",
+          "role": "Full stack developer & architect",
+          "context": "Private client · marketplace",
+          "description": "Exchange marketplace for the Italian community with the VAL complementary currency: offer, find and donate products, services and skills while spending fewer euros. Full architecture and development.",
+          "highlights": [],
+          "metric": "~600 active users in production"
         },
-        {
-          "title": "Traceability viewer",
-          "text": "Web app that read each batch's on-chain data and rendered it as the product's visual journey, from producer to consumer. Full frontend, chain reads, and review of the smart contracts involved."
+        "foodchain": {
+          "company": "Foodchain SpA",
+          "role": "Full stack developer",
+          "context": "I3P, Politecnico di Torino incubator",
+          "description": "Agri-food traceability startup with its own blockchain (Quadrans). Three concrete contributions:",
+          "highlights": [
+            {
+              "title": "Miner monitoring proxy",
+              "text": "Service that logged each mining node's connection time and computed a reward proportional to that uptime."
+            },
+            {
+              "title": "Automated crypto payouts",
+              "text": "Pipeline that automatically sent tokens to every newly registered user according to the onboarding policy; from a manual process to zero intervention."
+            },
+            {
+              "title": "Traceability viewer",
+              "text": "Web app that read each batch's on-chain data and rendered it as the product's visual journey, from producer to consumer. Full frontend, chain reads, and review of the smart contracts involved."
+            }
+          ],
+          "metric": ""
         }
-      ]
+      }
     },
     "projects": {
       "title": "Projects",
-      "lead": "Two platforms built for clients and one of my own. All three in production, with users who complain when they break.",
+      "lead": "What I build on my own, in production and with real users.",
       "labels": {
         "problem": "Problem",
         "role": "Role",
@@ -333,16 +357,6 @@
         "client": "Client work"
       },
       "items": {
-        "pagine": {
-          "problem": "Exchange marketplace for the Italian community with the VAL complementary currency: offer, find and donate products, services and skills while spending fewer euros.",
-          "role": "Architect and developer of the whole project for the client.",
-          "metric": "~600 active users in production"
-        },
-        "flowpack": {
-          "problem": "Multi-tenant logistics SaaS (deliveries and pickups) for carriers and agencies. AI-assisted incident classification, multichannel notifications (WhatsApp, email, webhooks), bulk CSV import, carrier integrations, per-tenant isolation with security audit.",
-          "role": "Sole developer and architect; product, backend, frontend, CI/CD with staging and production.",
-          "metric": "Production pilot with real logistics-sector clients"
-        },
         "chocosfera": {
           "problem": "Ethical cocoa traceability on blockchain: a Telegram bot lets the grower photograph the tree, capture geolocation and issue a tokenized digital certificate; the same channel connects producer and buyer.",
           "role": "Founder and developer.",
@@ -440,30 +454,65 @@
     },
     "experience": {
       "title": "Esperienza",
-      "company": "Foodchain SpA",
-      "role": "Full stack developer",
-      "context": "I3P, incubatore del Politecnico di Torino",
-      "description": "Startup di tracciabilità agroalimentare con blockchain propria (Quadrans). Tre contributi concreti:",
       "periodLabel": "Periodo",
       "stackLabel": "Stack",
-      "contributions": [
-        {
-          "title": "Proxy di monitoraggio dei miner",
-          "text": "Servizio che registrava il tempo di connessione di ogni nodo miner e calcolava la ricompensa proporzionale a quell'uptime."
+      "present": "oggi",
+      "jobs": {
+        "flowpack": {
+          "company": "FlowPack",
+          "role": "Full stack developer e architetto",
+          "context": "Cliente privato · SaaS logistica",
+          "description": "SaaS multi-tenant per la logistica (consegne e ritiri) per trasportatori e agenzie. Unico sviluppatore e architetto: prodotto, backend, frontend e CI/CD con staging e produzione.",
+          "highlights": [
+            {
+              "title": "Classificazione delle anomalie assistita dall'IA",
+              "text": "Triage automatico delle anomalie di consegna con l'IA."
+            },
+            {
+              "title": "Notifiche multicanale",
+              "text": "WhatsApp Business API, email (MailerSend) e webhook verso i sistemi del cliente."
+            },
+            {
+              "title": "Operatività su larga scala",
+              "text": "Import massivo da CSV, integrazioni con i corrieri e isolamento per tenant con audit di sicurezza."
+            }
+          ],
+          "metric": "Pilota in produzione con clienti reali del settore logistico"
         },
-        {
-          "title": "Automazione dei pagamenti in cripto",
-          "text": "Pipeline che inviava automaticamente token a ogni nuovo utente registrato secondo la policy di onboarding; da processo manuale a zero interventi."
+        "pagine": {
+          "company": "Pagine Azzurre",
+          "role": "Full stack developer e architetto",
+          "context": "Cliente privato · marketplace",
+          "description": "Marketplace di scambio della comunità italiana con moneta complementare VAL: offrire, cercare e donare prodotti, servizi e competenze spendendo meno euro. Architettura e sviluppo completi.",
+          "highlights": [],
+          "metric": "~600 utenti attivi in produzione"
         },
-        {
-          "title": "Visualizzatore di tracciabilità",
-          "text": "Applicazione web che leggeva i dati on-chain di ogni lotto e li mostrava come percorso visivo del prodotto, dal produttore al consumatore. Frontend completo, lettura della chain e revisione degli smart contract coinvolti."
+        "foodchain": {
+          "company": "Foodchain SpA",
+          "role": "Full stack developer",
+          "context": "I3P, incubatore del Politecnico di Torino",
+          "description": "Startup di tracciabilità agroalimentare con blockchain propria (Quadrans). Tre contributi concreti:",
+          "highlights": [
+            {
+              "title": "Proxy di monitoraggio dei miner",
+              "text": "Servizio che registrava il tempo di connessione di ogni nodo miner e calcolava la ricompensa proporzionale a quell'uptime."
+            },
+            {
+              "title": "Automazione dei pagamenti in cripto",
+              "text": "Pipeline che inviava automaticamente token a ogni nuovo utente registrato secondo la policy di onboarding; da processo manuale a zero interventi."
+            },
+            {
+              "title": "Visualizzatore di tracciabilità",
+              "text": "Applicazione web che leggeva i dati on-chain di ogni lotto e li mostrava come percorso visivo del prodotto, dal produttore al consumatore. Frontend completo, lettura della chain e revisione degli smart contract coinvolti."
+            }
+          ],
+          "metric": ""
         }
-      ]
+      }
     },
     "projects": {
       "title": "Progetti",
-      "lead": "Due piattaforme costruite per clienti e una mia. Tutte e tre in produzione, con utenti che si lamentano quando si rompono.",
+      "lead": "Quello che costruisco per conto mio, in produzione e con utenti veri.",
       "labels": {
         "problem": "Problema",
         "role": "Ruolo",
@@ -475,16 +524,6 @@
         "client": "Per cliente"
       },
       "items": {
-        "pagine": {
-          "problem": "Marketplace di scambio della comunità italiana con moneta complementare VAL: offrire, cercare e donare prodotti, servizi e competenze spendendo meno euro.",
-          "role": "Architetto e sviluppatore dell'intero progetto per il cliente.",
-          "metric": "~600 utenti attivi in produzione"
-        },
-        "flowpack": {
-          "problem": "SaaS multi-tenant per la logistica (consegne e ritiri) per trasportatori e agenzie. Classificazione delle anomalie assistita dall'IA, notifiche multicanale (WhatsApp, email, webhook), import massivo da CSV, integrazioni con i corrieri, isolamento per tenant con audit di sicurezza.",
-          "role": "Unico sviluppatore e architetto; prodotto, backend, frontend, CI/CD con staging e produzione.",
-          "metric": "Pilota in produzione con clienti reali del settore logistico"
-        },
         "chocosfera": {
           "problem": "Tracciabilità etica del cacao su blockchain: un bot Telegram permette al coltivatore di fotografare l'albero, acquisire la geolocalizzazione ed emettere un certificato digitale tokenizzato; lo stesso canale collega produttore e acquirente.",
           "role": "Fondatore e sviluppatore.",
@@ -541,5 +580,52 @@
       "print": "Stampa",
       "back": "Torna al portfolio"
     }
-  }
+  },
+  "experienceMeta": [
+    {
+      "id": "flowpack",
+      "start": "2025",
+      "end": "",
+      "kind": "client",
+      "domain": "",
+      "linkKey": "",
+      "stack": [
+        "Node.js",
+        "TypeScript",
+        "MongoDB",
+        "WhatsApp Business API",
+        "MailerSend",
+        "CI/CD"
+      ]
+    },
+    {
+      "id": "pagine",
+      "start": "2022",
+      "end": "2024",
+      "kind": "client",
+      "domain": "pagineazzurre.net",
+      "linkKey": "pagineAzzurre",
+      "stack": [
+        "React",
+        "Node.js",
+        "MongoDB",
+        "Vercel"
+      ]
+    },
+    {
+      "id": "foodchain",
+      "start": "2019",
+      "end": "2021",
+      "kind": "employee",
+      "domain": "",
+      "linkKey": "",
+      "stack": [
+        "Node.js",
+        "JavaScript",
+        "Web3.js",
+        "Solidity",
+        "React"
+      ]
+    }
+  ]
 }

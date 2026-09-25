@@ -32,26 +32,40 @@ export default function Cv({ lang, variant = null }: { lang: Lang; variant?: str
 
           <section className="cv-section">
             <h2 className="cv-h2"><span className="cv-num">01</span>{t.experience.title}</h2>
-            <div className="cv-row">
-              <div>
-                <strong className="cv-company">{t.experience.company}</strong>{' '}
-                <span className="cv-role">· {t.experience.role}</span>
-              </div>
-              <span className={`cv-period${v.periodPending ? ' is-pending' : ''}`}>{v.period}</span>
-            </div>
-            <div className="cv-ctx">{t.experience.context}</div>
-            <p className="cv-p">{t.experience.description}</p>
-            <ul className="cv-list">
-              {t.experience.contributions.map((c, i) => (
-                <li key={c.title}>
-                  <span className="cv-n">0{i + 1}</span>
-                  <span>
-                    <strong>{c.title}.</strong> <span className="cv-text">{c.text}</span>
-                  </span>
-                </li>
+            <div className="cv-jobs">
+              {v.jobs.map((j) => (
+                <article key={j.id} className="cv-job">
+                  <div className="cv-row">
+                    <div>
+                      <strong className="cv-company">{j.company}</strong>{' '}
+                      <span className="cv-role">· {j.role}</span>
+                    </div>
+                    <span className="cv-period">{j.period}</span>
+                  </div>
+                  <div className="cv-ctx">
+                    {j.context}
+                    {j.domain && <span className="cv-domain"> · {j.domain}</span>}
+                  </div>
+                  <p className="cv-p">{j.description}</p>
+                  {j.highlights.length > 0 && (
+                    <ul className="cv-list">
+                      {j.highlights.map((c, i) => (
+                        <li key={c.title}>
+                          <span className="cv-n">0{i + 1}</span>
+                          <span>
+                            <strong>{c.title}.</strong> <span className="cv-text">{c.text}</span>
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <div className="cv-project-foot">
+                    <span className="cv-stackline">{t.experience.stackLabel}: {j.stack}</span>
+                    {j.metric && <span className="cv-metric">▲ {j.metric}</span>}
+                  </div>
+                </article>
               ))}
-            </ul>
-            <div className="cv-stackline">{t.experience.stackLabel}: {v.experienceStack}</div>
+            </div>
           </section>
 
           <section className="cv-section">

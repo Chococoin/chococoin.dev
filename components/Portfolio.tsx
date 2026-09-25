@@ -106,33 +106,45 @@ export default function Portfolio({ lang }: { lang: Lang }) {
             <span className="num">02</span>
             <h2 className="h2">{t.experience.title}</h2>
           </div>
-          <article className="exp">
-            <div className="exp-side">
-              <h3 className="h3">{t.experience.company}</h3>
-              <div className="exp-role">{t.experience.role}</div>
-              <div className="exp-ctx">{t.experience.context}</div>
-              <dl className="exp-dl">
-                <dt>{t.experience.periodLabel}</dt>
-                <dd className={v.periodPending ? 'is-pending' : undefined}>{v.period}</dd>
-                <dt>{t.experience.stackLabel}</dt>
-                <dd>{v.experienceStack}</dd>
-              </dl>
-            </div>
-            <div className="exp-main">
-              <p className="exp-desc">{t.experience.description}</p>
-              <ol className="exp-list">
-                {t.experience.contributions.map((c, i) => (
-                  <li key={c.title} className="exp-item">
-                    <span className="exp-n">0{i + 1}</span>
-                    <div className="exp-body">
-                      <strong>{c.title}</strong>
-                      <span>{c.text}</span>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </article>
+          <div className="exp-jobs">
+            {v.jobs.map((j) => (
+              <article key={j.id} className="exp">
+                <div className="exp-side">
+                  <h3 className="h3">
+                    {j.company}
+                    {j.link && (
+                      <a href={j.link} target="_blank" rel="noopener" className="exp-link">{j.domain} ↗</a>
+                    )}
+                  </h3>
+                  <div className="exp-role">{j.role}</div>
+                  <div className="exp-ctx">{j.context}</div>
+                  <dl className="exp-dl">
+                    <dt>{t.experience.periodLabel}</dt>
+                    <dd>{j.period}</dd>
+                    <dt>{t.experience.stackLabel}</dt>
+                    <dd>{j.stack}</dd>
+                  </dl>
+                </div>
+                <div className="exp-main">
+                  <p className="exp-desc">{j.description}</p>
+                  {j.highlights.length > 0 && (
+                    <ol className="exp-list">
+                      {j.highlights.map((c, i) => (
+                        <li key={c.title} className="exp-item">
+                          <span className="exp-n">0{i + 1}</span>
+                          <div className="exp-body">
+                            <strong>{c.title}</strong>
+                            <span>{c.text}</span>
+                          </div>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                  {j.metric && <p className="exp-metric">▲ {j.metric}</p>}
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
 
         <section id="proyectos" className="section">
