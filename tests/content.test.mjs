@@ -33,6 +33,9 @@ test('proyectos: cada meta tiene textos en los tres idiomas', () => {
     for (const l of LANGS) assert.ok(content[l].projects.labels[m.kind], `${l}.projects.labels.${m.kind}`);
     for (const l of LANGS) assert.ok(content[l].projects.items[m.id], `${l}.projects.items.${m.id}`);
     assert.ok(m.screenshotKey in content.placeholders, `placeholder ${m.screenshotKey}`);
+    const shot = content.placeholders[m.screenshotKey];
+    if (shot && typeof shot === 'object')
+      for (const l of LANGS) assert.ok(l in shot, `${m.screenshotKey}.${l}`);
     if (m.linkKey) assert.ok(content.links[m.linkKey], `link ${m.linkKey}`);
   }
 });

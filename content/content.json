@@ -1,12 +1,16 @@
 {
-  "_readme": "Único archivo de contenido. Todo lo que está vacío en `placeholders` se muestra en la web como [PENDIENTE]. Los textos por idioma están en es / en / it y deben tener la misma estructura (lo comprueba `npm test`).",
+  "_readme": "Único archivo de contenido. Todo lo que está vacío en `placeholders` se muestra en la web como [PENDIENTE]. Los textos por idioma están en es / en / it y deben tener la misma estructura (lo comprueba `npm test`). Las capturas SCREENSHOT_* aceptan una ruta o un objeto {es,en,it}; si falta un idioma se usa la primera disponible.",
   "placeholders": {
     "EMAIL": "g.lugo.dev@gmail.com",
     "GITHUB_URL": "https://github.com/Chococoin",
     "CV_URL": "/cv/german-lugo-cv-{lang}.pdf",
     "SCREENSHOT_PAGINE_AZZURRE": "",
     "SCREENSHOT_FLOWPACK": "",
-    "SCREENSHOT_CHOCOSFERA": ""
+    "SCREENSHOT_CHOCOSFERA": {
+      "es": "/img/projects/chocosfera-es.jpg",
+      "en": "",
+      "it": ""
+    }
   },
   "links": {
     "linkedin": "https://linkedin.com/in/germán-lugo-73255b201",

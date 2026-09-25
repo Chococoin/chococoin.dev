@@ -69,7 +69,21 @@ export function langPath(lang: Lang): string {
 
 function placeholder(content: Content, key: keyof Placeholders): string {
   const v = content.placeholders[key];
-  return v && v.trim() ? v.trim() : '';
+  return typeof v === 'string' && v.trim() ? v.trim() : '';
+}
+
+/** Captura de un proyecto: ruta única o una por idioma ({es,en,it}); si falta la del
+    idioma pedido se usa la primera disponible. */
+function screenshotFor(content: Content, key: string, lang: Lang): string {
+  const v = (content.placeholders as Record<string, unknown>)[key];
+  if (typeof v === 'string') return v.trim();
+  if (v && typeof v === 'object') {
+    const byLang = v as Record<string, string>;
+    const own = byLang[lang]?.trim();
+    if (own) return own;
+    for (const l of LANGS) { const alt = byLang[l]?.trim(); if (alt) return alt; }
+  }
+  return '';
 }
 
 export type ProjectKind = 'own' | 'client';
@@ -160,7 +174,7 @@ export function getView(lang: Lang, variant: string | null = null): View {
       kindLabel: t.projects.labels[kind],
       domain: m.domain,
       link,
-      screenshot: placeholder(content, m.screenshotKey as keyof Placeholders),
+      screenshot: screenshotFor(content, m.screenshotKey, lang),
       stack: m.stack.join(' · '),
       problem: tx.problem,
       role: tx.role,
