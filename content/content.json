@@ -1,8 +1,8 @@
 {
   "_readme": "Único archivo de contenido. Todo lo que está vacío en `placeholders` se muestra en la web como [PENDIENTE]. Los textos por idioma están en es / en / it y deben tener la misma estructura (lo comprueba `npm test`).",
   "placeholders": {
-    "FOODCHAIN_INICIO": "",
-    "FOODCHAIN_FIN": "",
+    "FOODCHAIN_INICIO": "2019",
+    "FOODCHAIN_FIN": "2021",
     "EMAIL": "g.lugo.dev@gmail.com",
     "GITHUB_URL": "https://github.com/Chococoin",
     "CV_URL": "/cv/german-lugo-cv-{lang}.pdf",

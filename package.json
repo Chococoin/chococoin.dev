@@ -7,6 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "cv:pdf": "next build && node scripts/cv-pdf.mjs && next build",
+    "cv:variant": "sh -c 'CV_VARIANT=$0 next build && CV_VARIANT=$0 node scripts/cv-pdf.mjs && next build'",
     "start": "npx serve out",
     "test": "node --test tests/*.test.mjs",
     "deploy": "npm run build && rsync -rtvz --omit-dir-times --delete out/ stellar:public_html/"

@@ -19,7 +19,7 @@ const CHROME = process.env.CHROME || '/Applications/Google Chrome.app/Contents/M
 const LANGS = ['es', 'en', 'it'];
 const WAIT_MS = 60000;
 
-if (!fs.existsSync(path.join(OUT, 'cv', 'index.html'))) {
+if (!fs.existsSync(path.join(OUT, process.env.CV_VARIANT ? `en/cv/${process.env.CV_VARIANT}` : 'cv', 'index.html'))) {
   console.error('No existe out/cv/index.html: ejecuta `next build` antes.');
   process.exit(1);
 }
@@ -74,11 +74,15 @@ async function printPdf(url, pdf) {
   return ok;
 }
 
-fs.mkdirSync('public/cv', { recursive: true });
+// Con CV_VARIANT=<id> (y el build hecho con esa misma variable) solo se imprime
+// la variante inglesa a private/, que esta fuera de git y del sitio.
+const variant = process.env.CV_VARIANT || null;
+const jobs = variant
+  ? [{ url: `http://127.0.0.1:${PORT}/en/cv/${variant}/`, pdf: path.resolve(`private/German-Lugo-CV-${variant}.pdf`), lang: `en/${variant}` }]
+  : LANGS.map((lang) => ({ url: `http://127.0.0.1:${PORT}/${lang === 'es' ? '' : `${lang}/`}cv/`, pdf: path.resolve(`public/cv/german-lugo-cv-${lang}.pdf`), lang }));
+fs.mkdirSync(variant ? 'private' : 'public/cv', { recursive: true });
 let failed = false;
-for (const lang of LANGS) {
-  const url = `http://127.0.0.1:${PORT}/${lang === 'es' ? '' : `${lang}/`}cv/`;
-  const pdf = path.resolve(`public/cv/german-lugo-cv-${lang}.pdf`);
+for (const { url, pdf, lang } of jobs) {
   const ok = await printPdf(url, pdf);
   if (ok) console.log(`✓ ${lang}: ${path.relative(process.cwd(), pdf)} (${(fs.statSync(pdf).size / 1024).toFixed(0)} KB)`);
   else { failed = true; console.error(`✗ ${lang}: no se generó ${pdf} en ${WAIT_MS / 1000}s`); }

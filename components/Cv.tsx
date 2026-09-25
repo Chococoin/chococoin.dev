@@ -5,8 +5,8 @@ import LangSwitch from '@/components/LangSwitch';
 import PrintButton from '@/components/PrintButton';
 import { getView, langPath, type Lang } from '@/lib/content';
 
-export default function Cv({ lang }: { lang: Lang }) {
-  const v = getView(lang);
+export default function Cv({ lang, variant = null }: { lang: Lang; variant?: string | null }) {
+  const v = getView(lang, variant);
   const { t } = v;
 
   return (
@@ -14,7 +14,7 @@ export default function Cv({ lang }: { lang: Lang }) {
       <div className="cv-toolbar">
         <a href={langPath(lang)} className="cv-back">← {t.cv.back}</a>
         <div className="cv-tools">
-          {v.cvUrl && (
+          {v.cvUrl && !variant && (
             <a href={v.cvUrl} download className="cv-btn cv-btn-primary">{t.cv.download}</a>
           )}
           <PrintButton label={t.cv.print} />
