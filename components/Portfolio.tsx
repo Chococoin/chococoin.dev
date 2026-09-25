@@ -153,7 +153,7 @@ export default function Portfolio({ lang }: { lang: Lang }) {
             <h2 className="h2">{t.projects.title}</h2>
           </div>
           <p className="lead">{t.projects.lead}</p>
-          <div className="proj-grid">
+          <div className={`proj-grid${v.projects.length === 1 ? ' is-single' : ''}`}>
             {v.projects.map((p) => (
               <article key={p.id} className="card proj">
                 {p.screenshot ? (

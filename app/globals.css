@@ -175,6 +175,15 @@ a:hover { color: var(--accent-hover); }
   display: flex; align-items: center; justify-content: center; gap: 6px;
   font-family: var(--mono); font-size: 12px; color: var(--faint);
 }
+/* un solo proyecto: tarjeta horizontal, captura a la izquierda */
+.proj-grid.is-single .proj { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+.proj-grid.is-single .proj-shot,
+.proj-grid.is-single .proj-shot-empty { aspect-ratio: auto; height: 100%; min-height: 260px; border-bottom: 0; border-right: 1px solid var(--line-strong); }
+@media (max-width: 720px) {
+  .proj-grid.is-single .proj { grid-template-columns: minmax(0, 1fr); }
+  .proj-grid.is-single .proj-shot,
+  .proj-grid.is-single .proj-shot-empty { aspect-ratio: 16 / 9; height: auto; min-height: 0; border-right: 0; border-bottom: 1px solid var(--line-strong); }
+}
 .proj-body { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
 .proj-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .proj-name { display: flex; flex-direction: column; gap: 4px; }
