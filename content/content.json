@@ -17,7 +17,8 @@
     "pagineAzzurre": "https://pagineazzurre.net",
     "chocosfera": "https://chocosfera.com",
     "arcade": "/arcade/",
-    "site": "https://chococoin-dev.vercel.app"
+    "site": "https://chococoin-dev.vercel.app",
+    "flowpack": "https://flowpack.ai"
   },
   "stack": [
     {
@@ -591,8 +592,8 @@
       "start": "2025",
       "end": "",
       "kind": "client",
-      "domain": "",
-      "linkKey": "",
+      "domain": "flowpack.ai",
+      "linkKey": "flowpack",
       "stack": [
         "Node.js",
         "TypeScript",

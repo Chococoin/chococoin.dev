@@ -113,8 +113,8 @@
       "start": "2025",
       "end": "",
       "kind": "client",
-      "domain": "",
-      "linkKey": "",
+      "domain": "flowpack.ai",
+      "linkKey": "flowpack",
       "stack": [
         "Node.js",
         "TypeScript",
